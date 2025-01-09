@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" monitorInterval="30">
+    <!-- Console Appender -->
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %c{2} (%F:%L) - %m%n"/>
+        </Console>
+
+        <!-- Info Log File Appender -->
+        <File name="InfoFile" fileName="info.log" append="true">
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %c{2} (%F:%L) - %m%n"/>
+            <Filters>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </File>
+
+        <!-- Error Log File Appender -->
+        <File name="ErrorFile" fileName="error.log" append="false">
+            <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %c{2} (%F:%L) - %m%n"/>
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </File>
+    </Appenders>
+
+    <!-- Loggers -->
+    <Loggers>
+        <Logger name="com.jcg.log4j.example" level="debug" additivity="false">
+            <AppenderRef ref="InfoFile"/>
+            <AppenderRef ref="ErrorFile"/>
+        </Logger>
+
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
+
+
+
+
+
