@@ -14,21 +14,22 @@ public class TestBrowsers {
     public static Logger log = Logger.getLogger(TestBrowsers.class.getName());
     static ChromeDriver driver = new ChromeDriver();
     static FirefoxDriver ffDriver = new FirefoxDriver();
-    FieldAccessor.PropertyConfigurable.Co
 
     public void ChromeDriver () {
+        driver.manage().window().maximize();
         driver.get("https://www.google.com");
     }
     public void firefoxDriver () {
+        ffDriver.manage().window().maximize();
         ffDriver.get("https://www.google.com");
     }
 
     public static void main(String[] args) {
         TestBrowsers test = new TestBrowsers();
         test.ChromeDriver();
-        log.info(driver.getCurrentUrl());
+        log.info("Logger: "+driver.getCurrentUrl());
         test.firefoxDriver();
-        log.info("Driver closed");
+        log.info("Logger: Driver closed");
 
         driver.close();
         ffDriver.close();
