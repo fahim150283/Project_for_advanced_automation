@@ -1,22 +1,29 @@
 package TestCases;
 
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
 
 public class TestBrowsers {
 
 
     public static Logger log = LogManager.getLogger(TestBrowsers.class.getName());
     static WebDriver driver;
-    static String browser = "firefox";
+    static String browser = "chrome";
+
+    //variables for ease of code
+    public static String xpath;
+    public static String id;
+    public static String cssSelector;
+
 
     @BeforeTest
     public void setUp() {
@@ -25,32 +32,44 @@ public class TestBrowsers {
         }else if (browser.equals("firefox")) {
             driver = new FirefoxDriver();
         }
+        WebDriver.Timeouts timeouts = driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+//        driver.manage().window().minimize();
     }
 
-    @Test
-    public static void test1() {
 
-        driver.get("https://www.google.com");
-        log.info("Logger : ", driver.getCurrentUrl());
-
-        //get title
-        String title = driver.getTitle();
-
-//        System.out.println(title);
-
-
-    }
 
     @Test
-    public static void test2() {
-        driver.get("https://www.google.com/search?q=how+to+check+if+the+chromedriver+is+closed+in+selenium+java&sca_esv=b403c232d5a77298&rlz=1C1CHBF_enBD1055BD1055&sxsrf=ADLYWIKw17Xg-nf3lX9kZzdemNs0S1cWUA%3A1736608182640&ei=tomCZ4y_Jvf2seMPj7jUkQM&oq=how+to+check+if+the+chromedriver+is+closed+in+sel&gs_lp=Egxnd3Mtd2l6LXNlcnAiMWhvdyB0byBjaGVjayBpZiB0aGUgY2hyb21lZHJpdmVyIGlzIGNsb3NlZCBpbiBzZWwqAggBMgUQIRigATIFECEYoAFIgqUBUABYy5gBcAp4AJABAJgB2QGgAb5CqgEGMC41NS40uAEDyAEA-AEBmAJDoAK2QcICBBAjGCfCAgoQIxiABBgnGIoFwgILEAAYgAQYkQIYigXCAgsQABiABBixAxiDAcICCBAAGIAEGLEDwgIUEC4YgAQYsQMYgwEYxwEYigUYrwHCAgUQABiABMICCxAAGIAEGLEDGIoFwgIIEC4YgAQYsQPCAgsQLhiABBixAxjUAsICChAAGIAEGBQYhwLCAgYQABgWGB7CAgcQABiABBgNwgILEAAYgAQYhgMYigXCAgUQABjvBcICCBAAGKIEGIkFwgIEECEYFcICBRAhGJIDwgIFECEYnwXCAggQABiABBiiBJgDAJIHBzEwLjUzLjSgB42uAw&sclient=gws-wiz-serp");
+    public static void test1() throws InterruptedException {
+        driver.get("https://www.saucedemo.com/");
         log.info("Logger : ", driver.getCurrentUrl());
-        String title = driver.getTitle();
+
+        Thread.sleep(2000);
+
+        //username
+        xpath = "//*[@id=\"login_credentials\"]/text()[1]";
+        String username = String.valueOf(driver.findElement(By.xpath(xpath)));
+        //password
+        xpath = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[2]/text()";
+        String password = String.valueOf(driver.findElement(By.xpath(xpath)));
+
+        System.out.println(username + " " + password);
+
+        //username field
+        id = "user-name";
+        driver.findElement(By.id(id)).sendKeys(username);
+        //password field
+        id = "password";
+        driver.findElement(By.id(id)).sendKeys(password);
+
+        //click the login button
+        id = "login-button";
+        driver.findElement(By.id(id)).click();
     }
 
     @AfterTest
-    public static void afterTest() {
+    public static void afterTest() throws InterruptedException {
+        Thread.sleep(2000);
 //        driver.close();     //close current browser
         driver.quit();      //close all the browsers
     }
