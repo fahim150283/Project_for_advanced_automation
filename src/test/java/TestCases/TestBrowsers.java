@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -23,7 +25,7 @@ public class TestBrowsers {
     public static String xpath;
     public static String id;
     public static String cssSelector;
-
+    public static WebDriverWait wait;
 
     @BeforeTest
     public void setUp() {
@@ -32,7 +34,8 @@ public class TestBrowsers {
         }else if (browser.equals("firefox")) {
             driver = new FirefoxDriver();
         }
-        WebDriver.Timeouts timeouts = driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         driver.manage().window().maximize();
 //        driver.manage().window().minimize();
     }
@@ -41,19 +44,20 @@ public class TestBrowsers {
 
     @Test
     public static void test1() throws InterruptedException {
-        driver.get("https://demoqa.com/");
+        driver.get("https://www.saucedemo.com/");
         log.info("Logger : ", driver.getCurrentUrl());
 
         Thread.sleep(1000);
 
         //username
         xpath = "//*[@id=\"login_credentials\"]/text()[2]";
+        wait.until(ExpectedConditions.visibilityOf(((driver.findElement(By.xpath(xpath))))));
         String username = String.valueOf(driver.findElement(By.xpath(xpath)));
         System.out.println(username);
 
         //password
         xpath = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[2]/text()";
-        String password = String.valueOf(driver.findElement(By.xpath(xpath)));
+        String password = String.valueOf(driver.(By.xpath(xpath)));
 
         System.out.println(username + " " + password);
 
@@ -68,6 +72,9 @@ public class TestBrowsers {
         id = "login-button";
         driver.findElement(By.id(id)).click();
     }
+
+
+
 
     @AfterTest
     public static void afterTest() throws InterruptedException {
