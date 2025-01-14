@@ -41,14 +41,16 @@ public class TestBrowsers {
 
     @Test
     public static void test1() throws InterruptedException {
-        driver.get("https://www.saucedemo.com/");
+        driver.get("https://demoqa.com/");
         log.info("Logger : ", driver.getCurrentUrl());
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         //username
-        xpath = "//*[@id=\"login_credentials\"]/text()[1]";
+        xpath = "//*[@id=\"login_credentials\"]/text()[2]";
         String username = String.valueOf(driver.findElement(By.xpath(xpath)));
+        System.out.println(username);
+
         //password
         xpath = "//*[@id=\"root\"]/div/div[2]/div[2]/div/div[2]/text()";
         String password = String.valueOf(driver.findElement(By.xpath(xpath)));
