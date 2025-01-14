@@ -1,8 +1,6 @@
 package TestCases;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +14,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.List;
 
 public class TestBrowsers {
 
@@ -62,14 +61,25 @@ public class TestBrowsers {
         wait.until(
                 d -> {
                     try {
-                        driver.get("https://www.saucedemo.scom/");
+                        // navigate to google
+                        driver.get("https://www.google.com/");
                         log.info("Logger: {}", driver.getCurrentUrl());
 
-                        //value of login button
-                        xpath = "//form/input";
+                        //search for string
+                        xpath = "//*[@id=\"APjFqb\"]";
+                        driver.findElement(By.xpath(xpath)).sendKeys("Way2Automation");
+                        driver.findElement(By.xpath(xpath)).sendKeys(Keys.ENTER);
 
-                        String login = driver.findElement(By.xpath(xpath)).getAttribute("value");
-                        System.out.println(login);
+                        //click the first link
+                        xpath = "//*[@id=\"wxVGi\"]/div/div/div/div/div/div/div[1]/div/span/a";
+                        driver.findElement(By.xpath(xpath)).click();
+
+                        //get the count of the links
+                        List<WebElement> links = driver.findElements(By.tagName("a"));
+                        for (WebElement link : links) {
+                            String url = link.getAttribute("href");
+                            System.out.println(url);
+                        }
 
                     } catch (NoAlertPresentException e) {
                         return true; // Alert has disappeared
