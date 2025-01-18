@@ -111,43 +111,37 @@ public class TestBrowsers {
                         // navigate to google
                         driver.get("https://qa.way2automation.com/");
                         log.info("Navigated to: " + driver.getCurrentUrl());
-                        log.info("Logger: {}");
-                        log.info("Form submitted successfully!");
-
 
                         // Locate 'Name' label and field
-                        String xpathNameLabel = "//label[text()='Name:']";
+                        String xpathNameLabel = "//*[@id=\"load_form\"]/fieldset[1]/label";
                         WebElement nameLabel = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpathNameLabel)));
                         WebElement nameField = driver.findElement(with(By.tagName("input")).toRightOf(nameLabel));
                         nameField.sendKeys("John");
 
                         // Locate 'Phone' field
-                        WebElement phoneField = driver.findElement(with(By.tagName("input")).below(nameLabel).toRightOf(nameLabel));
+                        WebElement phoneField = driver.findElement(with(By.tagName("input")).below(nameField).below(nameField));
                         phoneField.sendKeys("1234567890");
 
-//                        WebElement emailLabel = driver.findElement(By.xpath("//label[text()='Email:']"));
-//                        WebElement emailField = driver.findElement(with(By.tagName("input")).toRightOf(emailLabel));
-//                        emailField.sendKeys("john.doe@example.com");
-//
-//                        WebElement countryLabel = driver.findElement(By.xpath("//label[text()='Country:']"));
-//                        WebElement countryDropdown = driver.findElement(with(By.tagName("select")).toRightOf(countryLabel));
-//                        countryDropdown.sendKeys("Bangladesh");
-//
-//                        WebElement cityLabel = driver.findElement(By.xpath("//label[text()='City:']"));
-//                        WebElement cityField = driver.findElement(with(By.tagName("input")).toRightOf(cityLabel));
-//                        cityField.sendKeys("Dhaka");
-//
-//                        WebElement usernameLabel = driver.findElement(By.xpath("//label[text()='Username:']"));
-//                        WebElement usernameField = driver.findElement(with(By.tagName("input")).toRightOf(usernameLabel));
-//                        usernameField.sendKeys("john_doe");
-//
-//                        WebElement passwordLabel = driver.findElement(By.xpath("//label[text()='Password:']"));
-//                        WebElement passwordField = driver.findElement(with(By.tagName("input")).toRightOf(passwordLabel));
-//                        passwordField.sendKeys("password123");
-//
-//                        // Submit the form
-//                        WebElement submitButton = driver.findElement(with(By.tagName("input")).below(passwordField));
-//                        submitButton.click();
+                        WebElement emailField = driver.findElement(with(By.tagName("input")).below(phoneField));
+                        emailField.sendKeys("john.doe@example.com");
+
+                        WebElement countryDropdown = driver.findElement(with(By.tagName("select")).below(emailField));
+                        countryDropdown.sendKeys("Bangladesh");
+
+                        WebElement cityField = driver.findElement(with(By.tagName("input")).below(countryDropdown));
+                        cityField.sendKeys("Dhaka");
+
+                        WebElement usernameField = driver.findElement(with(By.tagName("input")).below(cityField));
+                        usernameField.sendKeys("john_doe");
+
+                        WebElement passwordField = driver.findElement(with(By.tagName("input")).below(usernameField));
+                        passwordField.sendKeys("password123");
+
+                        // Submit the form
+                        WebElement submitButton = driver.findElement(By.xpath("//*[@id=\"load_form\"]/div[1]/div[2]/input"));
+                        submitButton.click();
+
+                        log.info("Form submitted successfully!");
 
                     } catch (NoAlertPresentException e) {
                         return true; // Alert has disappeared
