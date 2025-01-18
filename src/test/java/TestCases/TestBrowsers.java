@@ -12,8 +12,11 @@ import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 import static org.testng.log4testng.Logger.getLogger;
@@ -66,45 +69,55 @@ public class TestBrowsers {
         driver.manage().window().maximize();
 //        driver.manage().window().minimize();
     }
-
-
-//    @Test
-//    public static void Assignment1() throws InterruptedException {
-//        wait.until(
-//                d -> {
-//                    try {
-//                        // navigate to google
-//                        driver.get("https://www.google.com/");
-//                        log.info("Logger: {}");
-//
-//                        //search for string
-//                        xpath = "//*[@id=\"APjFqb\"]";
-//                        driver.findElement(By.xpath(xpath)).sendKeys("Way2Automation");
-//                        driver.findElement(By.xpath(xpath)).sendKeys(Keys.ENTER);
-//
-//                        //click the first link
-//                        xpath = "//*[@id=\"wxVGi\"]/div/div/div/div/div/div/div[1]/div/span/a";
-//                        driver.findElement(By.xpath(xpath)).click();
-//
-//                        //get the count of the links
-//                        List<WebElement> links = driver.findElements(By.tagName("a"));
-//                        for (WebElement link : links) {
-//                            String url = link.getAttribute("href");
-//                            System.out.println(url);
-//                        }
-//
-//                    } catch (NoAlertPresentException e) {
-//                        return true; // Alert has disappeared
-//                    }
-//                    return true;
-//                });
-//
-//
-//    }
+    @AfterTest
+    public static void afterTest() throws InterruptedException {
+        Thread.sleep(2000);
+//        driver.close();     //close current browser
+//        driver.quit();      //close all the browsers
+    }
 
 
     @Test
-    public static void Assignment2() throws InterruptedException {
+    public static void Assignment1() {
+        wait.until(
+                d -> {
+                    try {
+                        // navigate to google
+                        driver.get("https://www.google.com/");
+                        log.info("The navigated url is: "+driver.getCurrentUrl());
+
+                        //search for string
+                        xpath = "//*[@id=\"APjFqb\"]";
+                        driver.findElement(By.xpath(xpath)).sendKeys("Way2Automation");
+                        driver.findElement(By.xpath(xpath)).sendKeys(Keys.ENTER);
+
+                        xpath = "//*[@id=\"recaptcha-anchor\"]";
+                        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath(xpath)));
+                        driver.findElement(By.xpath(xpath)).click();
+                        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.recaptcha-checkbox-checkmark"))).click();
+
+                        //click the first link
+                        xpath = "//*[@id=\"wxVGi\"]/div/div/div/div/div/div/div[1]/div/span/a";
+                        driver.findElement(By.xpath(xpath)).click();
+
+                        //get the count of the links
+                        List<WebElement> links = driver.findElements(By.tagName("a"));
+                        for (WebElement link : links) {
+                            String url = link.getAttribute("href");
+                            System.out.println(url);
+                        }
+
+                    } catch (NoAlertPresentException e) {
+                        return true; // Alert has disappeared
+                    }
+                    return true;
+                });
+
+
+    }
+
+    @Test
+    public static void Assignment2() {
         fluentwait.until(
                 d -> {
                     try {
@@ -146,7 +159,7 @@ public class TestBrowsers {
                         xpath = "//*[@id=\"alert\"]";
 //                        Thread.sleep(1000);
                         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
-                        log.info("this is the alert message : "+driver.findElement(By.xpath(xpath)).getText());
+                        log.info("this is the alert message : " + driver.findElement(By.xpath(xpath)).getText());
 
                     } catch (NoAlertPresentException e) {
                         return true; // Alert has disappeared
@@ -157,10 +170,59 @@ public class TestBrowsers {
 
     }
 
-    @AfterTest
-    public static void afterTest() throws InterruptedException {
-        Thread.sleep(2000);
-//        driver.close();     //close current browser
-        driver.quit();      //close all the browsers
+    @Test
+    public static void Assignment3() {
+        fluentwait.until(
+                d -> {
+                    try {
+                        // navigate to google
+                        driver.get("https://timesofindia.indiatimes.com/poll.cms");
+                        log.info("Navigated to: " + driver.getCurrentUrl());
+
+                        xpath = "//*[@id=\"mathq2\"]";
+                        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                        String mathQuestion = driver.findElement(By.xpath(xpath)).getText();
+
+                        int result = calculateResult(mathQuestion);
+                        xpath = "//*[@id=\"mathuserans2\"]";
+                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+                        driver.findElement(By.xpath(xpath)).sendKeys(String.valueOf(result));
+                    } catch (NoAlertPresentException e) {
+                    }
+                    return true;
+                });
+    }
+
+    public static int calculateResult(String input) {
+        try {
+            // Use regex to extract the operands and the operator. Improved regex to handle spaces
+            Pattern pattern = Pattern.compile("(\\d+)\\s*([+\\-*/])\\s*(\\d+)\\s*=");
+            Matcher matcher = pattern.matcher(input);
+
+            if (matcher.find()) {
+                int operand1 = Integer.parseInt(matcher.group(1));
+                String operator = matcher.group(2);
+                int operand2 = Integer.parseInt(matcher.group(3));
+
+                switch (operator) {
+                    case "+":
+                        return operand1 + operand2;
+                    case "-":
+                        return operand1 - operand2;
+                    case "*":
+                        return operand1 * operand2;
+                    case "/":
+                        return operand1 / operand2; // Be cautious about division by zero
+                    default:
+                        return Integer.MIN_VALUE; // Indicate invalid operator
+                }
+            } else {
+                return Integer.MIN_VALUE; // Indicate no match/invalid input
+            }
+        } catch (NumberFormatException e) {
+            return Integer.MIN_VALUE; // Indicate parsing error
+        } catch (ArithmeticException e){
+            return Integer.MIN_VALUE; // Indicate arithmetic error like division by zero
+        }
     }
 }
