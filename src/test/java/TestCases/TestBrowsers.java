@@ -138,10 +138,15 @@ public class TestBrowsers {
                         passwordField.sendKeys("password123");
 
                         // Submit the form
-                        WebElement submitButton = driver.findElement(By.xpath("//*[@id=\"load_form\"]/div[1]/div[2]/input"));
+//                        WebElement submitButton = driver.findElement(By.xpath("//*[@id=\"load_form\"]/div[1]/div[2]/input"));
+                        WebElement submitButton = driver.findElement(with(By.tagName("input")).below(passwordField));
                         submitButton.click();
 
                         log.info("Form submitted successfully!");
+                        xpath = "//*[@id=\"alert\"]";
+//                        Thread.sleep(1000);
+                        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+                        log.info("this is the alert message : "+driver.findElement(By.xpath(xpath)).getText());
 
                     } catch (NoAlertPresentException e) {
                         return true; // Alert has disappeared
