@@ -1,0 +1,8 @@
+2025-01-18 12:37:38 [main] WARN  org.testng.internal.Configuration - Detected a static method [TestCases.TestBrowsers.afterTest()]. Static configuration methods can cause unexpected behavior.
+2025-01-18 12:37:41 [main] INFO  TestCases.TestBrowsers - Navigated to: https://way2automation.com/way2auto_jquery/index.php
+2025-01-18 12:37:41 [main] INFO  TestCases.TestBrowsers - Logger: {}
+2025-01-18 12:37:41 [main] INFO  TestCases.TestBrowsers - Form submitted successfully!
+2025-01-18 12:38:37 [main] WARN  org.testng.internal.Configuration - Detected a static method [TestCases.TestBrowsers.afterTest()]. Static configuration methods can cause unexpected behavior.
+2025-01-18 12:38:40 [main] INFO  TestCases.TestBrowsers - Navigated to: https://way2automation.com/way2auto_jquery/index.php
+2025-01-18 12:38:40 [main] INFO  TestCases.TestBrowsers - Logger: {}
+2025-01-18 12:38:40 [main] INFO  TestCases.TestBrowsers - Form submitted successfully!

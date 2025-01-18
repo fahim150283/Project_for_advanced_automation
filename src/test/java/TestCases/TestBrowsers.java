@@ -3,22 +3,33 @@ package TestCases;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.log4testng.Logger;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
+import static org.testng.log4testng.Logger.getLogger;
 
 public class TestBrowsers {
-    
-    public static Logger log = LogManager.getLogger(TestBrowsers.class.getName());
+
+    public static Logger log;
+
+    static {
+        try {
+            log = getLogger(Class.forName(TestBrowsers.class.getName()));
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     static WebDriver driver;
     static String browser = "chrome";
 
@@ -26,7 +37,8 @@ public class TestBrowsers {
     public static String xpath;
     public static String id;
     public static String cssSelector;
-    static Wait<WebDriver> wait;
+    static Wait<WebDriver> fluentwait;
+    static WebDriverWait wait;
 
     @BeforeTest
     public void setUp() {
@@ -43,7 +55,7 @@ public class TestBrowsers {
             // explicit
             wait = new WebDriverWait(driver, Duration.ofSeconds(20));
             // Fluent
-            wait =
+            fluentwait =
                     new FluentWait<>(driver)
                             .withTimeout(Duration.ofSeconds(10))
                             .pollingEvery(Duration.ofMillis(900))
@@ -52,67 +64,67 @@ public class TestBrowsers {
 
         driver.manage().window().setPosition(new Point(-2000, 0));
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //        driver.manage().window().minimize();
     }
 
 
-    @Test
-    public static void Assignment1() throws InterruptedException {
-        wait.until(
-                d -> {
-                    try {
-                        // navigate to google
-                        driver.get("https://www.google.com/");
-                        log.info("Logger: {}", driver.getCurrentUrl());
-
-                        //search for string
-                        xpath = "//*[@id=\"APjFqb\"]";
-                        driver.findElement(By.xpath(xpath)).sendKeys("Way2Automation");
-                        driver.findElement(By.xpath(xpath)).sendKeys(Keys.ENTER);
-
-                        //click the first link
-                        xpath = "//*[@id=\"wxVGi\"]/div/div/div/div/div/div/div[1]/div/span/a";
-                        driver.findElement(By.xpath(xpath)).click();
-
-                        //get the count of the links
-                        List<WebElement> links = driver.findElements(By.tagName("a"));
-                        for (WebElement link : links) {
-                            String url = link.getAttribute("href");
-                            System.out.println(url);
-                        }
-
-                    } catch (NoAlertPresentException e) {
-                        return true; // Alert has disappeared
-                    }
-                    return true;
-                });
-
-
-    }
+//    @Test
+//    public static void Assignment1() throws InterruptedException {
+//        wait.until(
+//                d -> {
+//                    try {
+//                        // navigate to google
+//                        driver.get("https://www.google.com/");
+//                        log.info("Logger: {}");
+//
+//                        //search for string
+//                        xpath = "//*[@id=\"APjFqb\"]";
+//                        driver.findElement(By.xpath(xpath)).sendKeys("Way2Automation");
+//                        driver.findElement(By.xpath(xpath)).sendKeys(Keys.ENTER);
+//
+//                        //click the first link
+//                        xpath = "//*[@id=\"wxVGi\"]/div/div/div/div/div/div/div[1]/div/span/a";
+//                        driver.findElement(By.xpath(xpath)).click();
+//
+//                        //get the count of the links
+//                        List<WebElement> links = driver.findElements(By.tagName("a"));
+//                        for (WebElement link : links) {
+//                            String url = link.getAttribute("href");
+//                            System.out.println(url);
+//                        }
+//
+//                    } catch (NoAlertPresentException e) {
+//                        return true; // Alert has disappeared
+//                    }
+//                    return true;
+//                });
+//
+//
+//    }
 
 
     @Test
     public static void Assignment2() throws InterruptedException {
-        Boolean until = wait.until(
+        fluentwait.until(
                 d -> {
                     try {
                         // navigate to google
                         driver.get("https://qa.way2automation.com/");
-                        log.info("Logger: {}", driver.getCurrentUrl());
+                        log.info("Navigated to: " + driver.getCurrentUrl());
+                        log.info("Logger: {}");
                         log.info("Form submitted successfully!");
 
-//                        Thread.sleep(3000);
-                        //xpath of phone
-                        // Locate the form elements using relative locators
-                        WebElement nameLabel = driver.findElement(By.xpath("//label[text()='Name:']"));
+
+                        // Locate 'Name' label and field
+                        String xpathNameLabel = "//label[text()='Name:']";
+                        WebElement nameLabel = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpathNameLabel)));
                         WebElement nameField = driver.findElement(with(By.tagName("input")).toRightOf(nameLabel));
                         nameField.sendKeys("John");
 
-//                        WebElement phoneLabel = driver.findElement(By.xpath("//label[text()='Phone:']"));
-//                        WebElement phoneField = driver.findElement(with(By.tagName("input")).toRightOf(phoneLabel));
-//                        phoneField.sendKeys("1234567890");
-//
+                        // Locate 'Phone' field
+                        WebElement phoneField = driver.findElement(with(By.tagName("input")).below(nameLabel).toRightOf(nameLabel));
+                        phoneField.sendKeys("1234567890");
+
 //                        WebElement emailLabel = driver.findElement(By.xpath("//label[text()='Email:']"));
 //                        WebElement emailField = driver.findElement(with(By.tagName("input")).toRightOf(emailLabel));
 //                        emailField.sendKeys("john.doe@example.com");
@@ -148,7 +160,7 @@ public class TestBrowsers {
 
     @AfterTest
     public static void afterTest() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 //        driver.close();     //close current browser
         driver.quit();      //close all the browsers
     }
