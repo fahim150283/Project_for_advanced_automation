@@ -12,12 +12,12 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 public class TestBrowsers {
-
-
+    
     public static Logger log = LogManager.getLogger(TestBrowsers.class.getName());
     static WebDriver driver;
     static String browser = "chrome";
@@ -50,7 +50,9 @@ public class TestBrowsers {
                             .ignoring(NoAlertPresentException.class);
         }
 
+        driver.manage().window().setPosition(new Point(-2000, 0));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //        driver.manage().window().minimize();
     }
 
@@ -92,55 +94,51 @@ public class TestBrowsers {
 
     @Test
     public static void Assignment2() throws InterruptedException {
-        wait.until(
+        Boolean until = wait.until(
                 d -> {
                     try {
                         // navigate to google
                         driver.get("https://qa.way2automation.com/");
                         log.info("Logger: {}", driver.getCurrentUrl());
                         log.info("Form submitted successfully!");
-                        Thread.sleep(2000);
 
+//                        Thread.sleep(3000);
                         //xpath of phone
-                        xpath = "//*[@id=\"load_form\"]/fieldset[2]/input";
-                        //input phone
-                        WebElement phone = driver.findElement(By.xpath(xpath));
-                        phone.sendKeys("01234567890");
-                        //input name
-                        WebElement name = driver.findElement(with(By.xpath(xpath)).above(phone));
-                        name.sendKeys("Tester 696969");
-                        //input email
-                        WebElement email = driver.findElement(with(By.xpath(xpath)).below(phone));
-                        email.sendKeys("nexojaj788@fenxz.com");
+                        // Locate the form elements using relative locators
+                        WebElement nameLabel = driver.findElement(By.xpath("//label[text()='Name:']"));
+                        WebElement nameField = driver.findElement(with(By.tagName("input")).toRightOf(nameLabel));
+                        nameField.sendKeys("John");
 
-                        //xpath of country
-                        xpath = "//*[@id=\"load_form\"]/fieldset[4]/select";
-                        //input country
-                        WebElement country = driver.findElement(By.xpath(xpath));
-                        Select objSelect = new Select(country);
-                        objSelect.selectByVisibleText("Bangladesh");
-                        //input city
-                        WebElement city = driver.findElement(with(By.xpath(xpath)).below(country));
-                        city.sendKeys("Dhaka");
-
-                        //xpath of password
-                        xpath = "//*[@id=\"load_form\"]/fieldset[7]/input";
-                        WebElement password = driver.findElement(By.xpath(xpath));
-                        password.sendKeys("123456");
-                        //input username
-                        WebElement username = driver.findElement(with(By.xpath(xpath)).above(password));
-                        username.sendKeys("dhumbachole");
-
-                        //submit
-                        xpath = "//*[@id=\"load_form\"]/div[1]/div[1]";
-                        WebElement signin = driver.findElement(By.xpath(xpath));
-                        WebElement submit = driver.findElement(with(By.xpath(xpath)).toRightOf(signin));
-                        submit.click();
+//                        WebElement phoneLabel = driver.findElement(By.xpath("//label[text()='Phone:']"));
+//                        WebElement phoneField = driver.findElement(with(By.tagName("input")).toRightOf(phoneLabel));
+//                        phoneField.sendKeys("1234567890");
+//
+//                        WebElement emailLabel = driver.findElement(By.xpath("//label[text()='Email:']"));
+//                        WebElement emailField = driver.findElement(with(By.tagName("input")).toRightOf(emailLabel));
+//                        emailField.sendKeys("john.doe@example.com");
+//
+//                        WebElement countryLabel = driver.findElement(By.xpath("//label[text()='Country:']"));
+//                        WebElement countryDropdown = driver.findElement(with(By.tagName("select")).toRightOf(countryLabel));
+//                        countryDropdown.sendKeys("Bangladesh");
+//
+//                        WebElement cityLabel = driver.findElement(By.xpath("//label[text()='City:']"));
+//                        WebElement cityField = driver.findElement(with(By.tagName("input")).toRightOf(cityLabel));
+//                        cityField.sendKeys("Dhaka");
+//
+//                        WebElement usernameLabel = driver.findElement(By.xpath("//label[text()='Username:']"));
+//                        WebElement usernameField = driver.findElement(with(By.tagName("input")).toRightOf(usernameLabel));
+//                        usernameField.sendKeys("john_doe");
+//
+//                        WebElement passwordLabel = driver.findElement(By.xpath("//label[text()='Password:']"));
+//                        WebElement passwordField = driver.findElement(with(By.tagName("input")).toRightOf(passwordLabel));
+//                        passwordField.sendKeys("password123");
+//
+//                        // Submit the form
+//                        WebElement submitButton = driver.findElement(with(By.tagName("input")).below(passwordField));
+//                        submitButton.click();
 
                     } catch (NoAlertPresentException e) {
                         return true; // Alert has disappeared
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
                     }
                     return true;
                 });
@@ -150,7 +148,7 @@ public class TestBrowsers {
 
     @AfterTest
     public static void afterTest() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(5000);
 //        driver.close();     //close current browser
         driver.quit();      //close all the browsers
     }
