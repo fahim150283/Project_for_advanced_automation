@@ -11,7 +11,12 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.log4testng.Logger;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -218,10 +223,6 @@ public class TestBrowsers {
                         // Wait for the element to be visible before capturing it
                         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"Mzk4OjY4NA==-1\"]")));
 
-                        // Full page screenshot (will only work properly in headless mode)
-                        File fullPage = ((ChromeDriver) driver).getScreenshotAs(OutputType.FILE);
-                        FileUtils.copyFile(fullPage, new File(screenshotFolder,"fullPage.png"));
-
                         // Visible page screenshot
                         File visiblePage = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                         FileUtils.copyFile(visiblePage, new File(screenshotFolder,"visiblePage.png"));
@@ -229,6 +230,14 @@ public class TestBrowsers {
                         // Element screenshot
                         File elementScreenshot = element.getScreenshotAs(OutputType.FILE);
                         FileUtils.copyFile(elementScreenshot, new File(screenshotFolder,"element.png"));
+
+                        // Capture full-page screenshot using AShot
+                        Screenshot fullPageScreenshot = new AShot()
+                                .shootingStrategy(ShootingStrategies.viewportPasting(100)) // Scroll and stitch
+                                .takeScreenshot(driver);
+                        // Save the screenshot
+                        BufferedImage image = fullPageScreenshot.getImage();
+                        ImageIO.write(image, "PNG", new File(screenshotFolder, "fullPage.png"));
 
                     } catch (NoAlertPresentException e) {
                     } catch (IOException e) {
