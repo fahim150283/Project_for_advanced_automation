@@ -216,7 +216,7 @@ public class TestBrowsers {
                         }
 
                         // Wait for the element to be visible before capturing it
-                        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"Mzk4OjY4NA==-1\"]")));
+                        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[3]/div[2]/div/a")));
 
                         // Full page screenshot (will only work properly in headless mode)
                         File fullPage = ((ChromeDriver) driver).getScreenshotAs(OutputType.FILE);
