@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
-public class TestRectangle extends TestCases.TestBrowsers {
+public class TestRectangle extends TestBrowsers {
 
 
     @Test
