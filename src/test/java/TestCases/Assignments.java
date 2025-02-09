@@ -1,17 +1,13 @@
 package TestCases;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
-
 import java.util.List;
-
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 public class Assignments extends TestBrowsers {
+
     @Test
     public static void Assignment1() {
         wait.until(
@@ -123,6 +119,34 @@ public class Assignments extends TestBrowsers {
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
                         driver.findElement(By.xpath(xpath)).sendKeys(String.valueOf(result));
                     } catch (NoAlertPresentException e) {
+                    }
+                    return true;
+                });
+    }
+
+    @Test
+    public static void Assignment4() {
+        fluentwait.until(
+                d -> {
+                    try {
+                        // navigate to google
+                        driver.get("https://qa.way2automation.com/");
+                        log.info("Navigated to: " + driver.getCurrentUrl());
+
+
+                        driver.manage().window().setPosition(new Point(0, 0));
+
+                        //set dimension
+                        for (int i = 50; i < 120; i++) {
+                            driver.manage().window().setSize(new Dimension(10*(i+1), 8*(i+1)));
+                            System.out.println(i + " " + driver.manage().window().getSize());
+                        }
+
+                        Thread.sleep(2000);
+
+                    } catch (NoAlertPresentException e) {
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                     return true;
                 });
