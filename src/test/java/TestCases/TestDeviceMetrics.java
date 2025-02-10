@@ -10,7 +10,7 @@ import java.util.Optional;
 public class TestDeviceMetrics extends TestBrowsers{
 
     @Test
-    public static void TestMOCGeoLocation() throws InterruptedException {
+    public static void TestDeviceMetrics() throws InterruptedException {
         DevTools devTools = ((ChromeDriver)driver).getDevTools();
         devTools.createSession();
         devTools.send(Emulation.setDeviceMetricsOverride(
