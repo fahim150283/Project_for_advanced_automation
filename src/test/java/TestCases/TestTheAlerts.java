@@ -19,16 +19,13 @@ public class TestTheAlerts extends TestBrowsers {
 
                         WebElement login = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='login1']")));
                         login.sendKeys("abc");
-                        WebElement pass = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='login1']")));
-                        pass.sendKeys("abc");
-                        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("abc");
-                        Thread.sleep(2000);
+//                        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("abc");
+                        //click the signin button
+                        driver.findElement(By.xpath("//input[@title='Sign in']")).click();
+                        wait.until(ExpectedConditions.alertIsPresent());
                         driver.switchTo().alert().accept();
 
-
-                        Thread.sleep(20000);
-
-                    } catch (NoAlertPresentException | InterruptedException e) {
+                    } catch (NoAlertPresentException e) {
                     }
                     return true;
                 }
@@ -46,14 +43,37 @@ public class TestTheAlerts extends TestBrowsers {
 
                         WebElement login = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='login1']")));
                         login.sendKeys("abc");
-                        WebElement pass = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='login1']")));
-                        pass.sendKeys("abc");
-                        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("abc");
-                        Thread.sleep(2000);
+//                        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("abc");
+                        //click the signin button
+                        driver.findElement(By.xpath("//input[@title='Sign in']")).click();
+                        wait.until(ExpectedConditions.alertIsPresent());
                         driver.switchTo().alert().dismiss();
-                        Thread.sleep(2000);
 
-                    } catch (NoAlertPresentException | InterruptedException e) {
+                    } catch (NoAlertPresentException e) {
+                    }
+                    return true;
+                }
+        );
+    }
+
+    @Test
+    public static void AlertTextReceive() {
+        fluentwait.until(
+                d -> {
+                    try {
+                        // navigate to google
+                        driver.get("https://mail.rediff.com/cgi-bin/login.cgi");
+                        log.info("Navigated to: " + driver.getCurrentUrl());
+
+                        WebElement login = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@id='login1']")));
+                        login.sendKeys("asbc");
+//                        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("asbc");
+                        //click the signin button
+                        driver.findElement(By.xpath("//input[@title='Sign in']")).click();
+                        wait.until(ExpectedConditions.alertIsPresent());
+                        System.out.println(driver.switchTo().alert().getText()+" is the alert message");
+
+                    } catch (NoAlertPresentException e) {
                     }
                     return true;
                 }
