@@ -34,6 +34,17 @@ public class EventListenerSample {
 
     }
 
+    @
+    public void testEventListener2() {
+        WebDriver webdriver = new ChromeDriver();
+        WebDriverListener listener = new MyListener();
+        WebDriver driver = new EventFiringDecorator<WebDriver>(listener).decorate(webdriver);
+        driver.get("http://gmail.com");
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.quit();
+    }
+
 }
 
 
