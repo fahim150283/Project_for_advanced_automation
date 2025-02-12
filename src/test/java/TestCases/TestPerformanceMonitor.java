@@ -25,7 +25,9 @@ public class TestPerformanceMonitor extends TestBrowsers {
 
                         List<Metric> metrics = devTools.send(Performance.getMetrics());
 
-                        metrics.forEach(metric -> System.out.println("Metric name is : " + metric.getName() + " and the Value is : " + metric.getValue()));
+                        metrics.forEach(metric ->
+                                log.info("Metric name is : " + metric.getName() + " and the Value is : " + metric.getValue())
+                        );
                     } catch (NoAlertPresentException | InterruptedException e) {
                     }
                     return true;
