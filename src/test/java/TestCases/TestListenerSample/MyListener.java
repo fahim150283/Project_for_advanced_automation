@@ -1,4 +1,4 @@
-package TestCases.ListenerSample;
+package TestCases.TestListenerSample;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

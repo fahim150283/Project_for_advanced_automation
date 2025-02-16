@@ -24,14 +24,14 @@ public class TestBrowsers {
         }
     }
 
-    static WebDriver driver;
+    public static WebDriver driver;
     static String browser = "chrome";
 
     //variables for ease of code
     public static String xpath;
     public static String id;
     public static String cssSelector;
-    static Wait<WebDriver> fluentwait;
+    public static Wait<WebDriver> fluentwait;
     static WebDriverWait wait;
 
     @BeforeTest

@@ -1,4 +1,4 @@
-package TestCases.ListenerSample;
+package TestCases.TestListenerSample;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -34,7 +34,7 @@ public class EventListenerSample {
 
     }
 
-    @
+    @Test
     public void testEventListener2() {
         WebDriver webdriver = new ChromeDriver();
         WebDriverListener listener = new MyListener();
