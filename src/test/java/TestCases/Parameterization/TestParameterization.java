@@ -5,7 +5,9 @@ import TestCases.TestBrowsers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import java.io.IOException;
+import java.util.Hashtable;
 
 public class TestParameterization extends TestBrowsers {
     private static ExcelReader excelReader;
@@ -17,15 +19,17 @@ public class TestParameterization extends TestBrowsers {
     }
 
     @Test(dataProvider = "getData")
-    public void DoLogin(Object[] data) {
-        String username = (String) data[0];
-        String password = (String) data[1];
-        String isCorrect = (String) data[2];
+    public void DoLogin(Hashtable<String, String> data) {
+        String username = data.get("username");
+        String password = data.get("password");
+        String isCorrect = data.get("isCorrect");
+        String fart = data.get("fart");
+        String dumb = data.get("dumb");
 
 
         fluentwait.until(
                 d -> {
-                    System.out.println("Username: " + username + " | Password: " + password + " | isCorrect: " + isCorrect);
+                    System.out.println("Username: " + username + " | Password: " + password + " | isCorrect: " + isCorrect+ " | fart: " + fart + " | dumb: " + dumb);
                     return true;
                 });
     }
@@ -36,12 +40,15 @@ public class TestParameterization extends TestBrowsers {
 
         int rows = excelReader.getRowCount(sheetname);
         int cols = excelReader.getColumnCount(sheetname);
-
-        Object[][] data = new Object[rows - 1][cols]; // Ignoring headers
+        Hashtable<String, String> table = null;
+        Object[][] data = new Object[rows - 1][1]; // Ignoring headers
 
         for (int row = 1; row < rows; row++) { // Start from 1 (skip header)
+            table = new Hashtable<String, String>();
             for (int col = 0; col < cols; col++) {
-                data[row - 1][col] = excelReader.getCellData(sheetname, row, col);
+//                data[row - 1][col] = excelReader.getCellData(sheetname, row, col);
+                table.put(excelReader.getCellData(sheetname, 0, col), excelReader.getCellData(sheetname, row, col));
+                data[row - 1][0] = table;
             }
         }
         return data;
