@@ -1,4 +1,4 @@
-package TestCases.Parameterization;
+package ExcelReader.Parameterization;
 
 import ExcelReader.ExcelReader;
 import TestCases.TestBrowsers;

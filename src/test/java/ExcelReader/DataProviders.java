@@ -7,10 +7,6 @@ import java.lang.reflect.Method;
 
 public class DataProviders {
 
-    @Test(dataProvider = "dp1")
-    public void test(String firstName, String lastName) {
-        System.out.println(firstName + " " + lastName);
-    }
 
     @DataProvider(name = "dp1")
     public Object[][] getData() {
