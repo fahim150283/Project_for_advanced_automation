@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.log4testng.Logger;
 import java.time.Duration;
 import java.util.regex.Matcher;
@@ -35,10 +36,10 @@ public class TestBrowsers {
     static WebDriverWait wait;
 
     @BeforeTest
-    public void setUp() {
-        if (browser.equals("chrome")) {
+    public void setUp(@Optional("chrome") String browser) {
+        if (browser.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
-        } else if (browser.equals("firefox")) {
+        } else if (browser.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
         }
 
@@ -64,7 +65,7 @@ public class TestBrowsers {
     public static void afterTest() throws InterruptedException {
 //        Thread.sleep(2000);
 //        driver.close();     //close current browser
-        driver.quit();      //close all the browsers
+//        driver.quit();      //close all the browsers
     }
 
 
