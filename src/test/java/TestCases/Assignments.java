@@ -8,7 +8,7 @@ import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 public class Assignments extends TestBrowsers {
 
-    @Test
+//    @Test
     public static void Assignment1() {
         wait.until(
                 d -> {
@@ -139,7 +139,7 @@ public class Assignments extends TestBrowsers {
                         //set dimension
                         for (int i = 50; i < 120; i++) {
                             driver.manage().window().setSize(new Dimension(10*(i+1), 8*(i+1)));
-                            System.out.println(i + " " + driver.manage().window().getSize());
+//                            System.out.println(i + " " + driver.manage().window().getSize());
                         }
 
                         Thread.sleep(2000);

@@ -4,9 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.*;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Optional;
+import org.testng.annotations.*;
 import org.testng.log4testng.Logger;
 import java.time.Duration;
 import java.util.regex.Matcher;
@@ -35,12 +33,16 @@ public class TestBrowsers {
     public static Wait<WebDriver> fluentwait;
     static WebDriverWait wait;
 
-    @BeforeTest
+    @BeforeMethod
+    @Parameters({"browser"})
     public void setUp(@Optional("chrome") String browser) {
-        if (browser.equalsIgnoreCase("chrome")) {
-            driver = new ChromeDriver();
-        } else if (browser.equalsIgnoreCase("firefox")) {
+        System.out.println("Selected Browser: " + browser); // Debugging output
+        if (browser.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
+            System.out.println("✅ Firefox Driver initialized!");
+        } else if (browser.equalsIgnoreCase("chrome")) {
+            driver = new ChromeDriver();
+            System.out.println("✅ Chrome Driver initialized!");
         }
 
         //waits
@@ -61,11 +63,12 @@ public class TestBrowsers {
         driver.manage().window().maximize();
 //        driver.manage().window().minimize();
     }
-    @AfterTest
+
+    @AfterMethod
     public static void afterTest() throws InterruptedException {
 //        Thread.sleep(2000);
 //        driver.close();     //close current browser
-//        driver.quit();      //close all the browsers
+        driver.quit();        //close all the browsers
     }
 
 
