@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Hashtable;
 
-public class TestParameterization extends TestBrowsers {
+public  abstract class TestParameterization extends TestBrowsers {
     private static ExcelReader excelReader;
 
     @BeforeClass

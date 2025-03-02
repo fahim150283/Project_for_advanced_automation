@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import static org.testng.log4testng.Logger.getLogger;
 
-public class TestBrowsers {
+public  class TestBrowsers {
 
     public static Logger log;
 

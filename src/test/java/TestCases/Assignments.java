@@ -115,10 +115,11 @@ public class Assignments extends TestBrowsers {
                         String mathQuestion = driver.findElement(By.xpath(xpath)).getText();
 
                         int result = calculateResult(mathQuestion);
-                        xpath = "//*[@id=\"mathuserans2\"]";
+                        xpath = "//*[@id=\"mathusersans2\"]";
                         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
                         driver.findElement(By.xpath(xpath)).sendKeys(String.valueOf(result));
                     } catch (NoAlertPresentException e) {
+
                     }
                     return true;
                 });

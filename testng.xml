@@ -3,17 +3,21 @@
         parallel="methods"
 >
 
+    <listeners>
+        <listener class-name="Utilities.TestListeners"/>
+    </listeners>
+
     <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="TestCases.Assignments"/>
+            <class name="TestCases.TestScreenshotOnFail"/>
         </classes>
     </test>
 
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="TestCases.Assignments"/>
+            <class name="TestCases.TestScreenshotOnFail"/>
         </classes>
     </test>
 
