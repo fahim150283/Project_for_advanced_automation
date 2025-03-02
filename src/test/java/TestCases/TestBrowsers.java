@@ -57,13 +57,13 @@ public class TestBrowsers {
         //waits
         {
             // implicit
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
             // explicit
-            wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait = new WebDriverWait(driver, Duration.ofSeconds(5));
             // Fluent
             fluentwait =
                     new FluentWait<>(driver)
-                            .withTimeout(Duration.ofSeconds(10))
+                            .withTimeout(Duration.ofSeconds(5))
                             .pollingEvery(Duration.ofMillis(900))
                             .ignoring(NoAlertPresentException.class);
         }

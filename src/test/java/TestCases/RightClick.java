@@ -29,7 +29,7 @@ public class RightClick extends TestBrowsers {
                         // Hover over "Installation"
                         WebElement installation = driver.findElement(By.xpath("//*[@id=\"dm2m2tbl\"]/tbody/tr[2]"));
                         action.moveToElement(installation).pause(500).perform();
-                        // Click How To Setup
+                        // Click How To Set up
                         WebElement setup = driver.findElement(By.xpath("//*[@id=\"dm2m3tbl\"]/tbody/tr[2]"));
                         setup.click();
 
