@@ -1,4 +1,7 @@
-<suite name="ParallelSuite">
+<suite
+        name="ParallelSuite"
+        parallel="methods"
+>
 
     <test name="FirefoxTest">
         <parameter name="browser" value="firefox"/>

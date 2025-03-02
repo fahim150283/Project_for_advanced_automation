@@ -6,9 +6,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.*;
 import org.testng.log4testng.Logger;
+
 import java.time.Duration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import static org.testng.log4testng.Logger.getLogger;
 
 public class TestBrowsers {
@@ -24,7 +26,8 @@ public class TestBrowsers {
     }
 
     public static WebDriver driver;
-    static String browser = "chrome";
+//    public static ThreadLocal<WebDriver> ThreadLocal_driver = new ThreadLocal<>();
+    static String browser;
 
     //variables for ease of code
     public static String xpath;
@@ -33,17 +36,23 @@ public class TestBrowsers {
     public static Wait<WebDriver> fluentwait;
     static WebDriverWait wait;
 
-    @BeforeMethod
-    @Parameters({"browser"})
-    public void setUp(@Optional("chrome") String browser) {
-        System.out.println("Selected Browser: " + browser); // Debugging output
+    private WebDriver getDriver(String browser) {
+        System.out.println("✅ Selected Browser: " + browser); // Debugging output
         if (browser.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
-            System.out.println("✅ Firefox Driver initialized!");
+//            System.out.println("✅ Firefox Driver initialized!");
         } else if (browser.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
-            System.out.println("✅ Chrome Driver initialized!");
+//            System.out.println("✅ Chrome Driver initialized!");
         }
+        return driver;
+    }
+
+    @BeforeMethod
+    @Parameters({"browser"})
+    public void setUp(@Optional("firefox") String browser) {
+        driver = getDriver(browser);
+//        ThreadLocal_driver.set(driver);
 
         //waits
         {
@@ -59,7 +68,7 @@ public class TestBrowsers {
                             .ignoring(NoAlertPresentException.class);
         }
 
-        driver.manage().window().setPosition(new Point(-2000, 0));
+        driver.manage().window().setPosition(new Point(-1000, 0));
         driver.manage().window().maximize();
 //        driver.manage().window().minimize();
     }
@@ -67,8 +76,13 @@ public class TestBrowsers {
     @AfterMethod
     public static void afterTest() throws InterruptedException {
 //        Thread.sleep(2000);
-//        driver.close();     //close current browser
-        driver.quit();        //close all the browsers
+// close all the browsers
+//        if (ThreadLocal_driver.get() != null) {
+//            ThreadLocal_driver.get().close();
+//        }
+        if (driver != null) {
+            driver.close();
+        }
     }
 
 
@@ -100,7 +114,7 @@ public class TestBrowsers {
             }
         } catch (NumberFormatException e) {
             return Integer.MIN_VALUE; // Indicate parsing error
-        } catch (ArithmeticException e){
+        } catch (ArithmeticException e) {
             return Integer.MIN_VALUE; // Indicate arithmetic error like division by zero
         }
     }
