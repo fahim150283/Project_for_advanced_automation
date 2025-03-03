@@ -19,6 +19,7 @@ public class TestScreenshotOnFail extends TestBrowsers {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            throw new RuntimeException(e);
         }
 
     }
