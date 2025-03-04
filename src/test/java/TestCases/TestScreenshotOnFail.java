@@ -14,13 +14,12 @@ public class TestScreenshotOnFail extends TestBrowsers {
             driver.findElement(By.name("qa")).sendKeys("selenium");
             driver.findElement(By.name("btnK")).click();
         }catch (Exception e) {
-            try {
-                TestScreenshotUsingAshot.sshot("testScreenshotOnFail");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+//            try {
+//                TestScreenshotUsingAshot.sshot("testScreenshotOnFail");
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
             throw new RuntimeException(e);
         }
-
     }
 }

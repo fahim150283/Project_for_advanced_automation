@@ -21,7 +21,7 @@ public class TestConfig {
     static {
         mailServer = "smtp.gmail.com";
         from = "ahchowdhury.off@gmail.com";
-        password = "pumisiskddaexjcc"; // Make sure this is an App Password, NOT your real password!
+        password = "pumisiskddaexjcc"; // this is an App Password
 
         to = new String[]{
                 "fahim150283@gmail.com",
