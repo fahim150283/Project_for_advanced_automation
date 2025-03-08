@@ -64,6 +64,16 @@ public class MonitoringMail {
 
             message.setContent(multipart);
 
+            for (int i = 0; i < to.length; i++) {
+                System.out.println(to[i]+": All the to");
+            }
+            System.out.println( "This is the debug info: " +
+                    mailServer+ " - "+
+                    from+ " - "+
+                    password+ " - "+
+                    subject+ " - "+
+                    messageBody+ " - ");
+
             // Send email
             Transport.send(message);
             System.out.println("Successfully sent mail with attachments!");
@@ -75,10 +85,13 @@ public class MonitoringMail {
 
     private static Properties getProperties(String mailServer) {
         Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
+        System.setProperty("https.protocols", "TLSv1.2");
+        System.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", mailServer);
-        props.put("mail.smtp.port", "465"); // Use TLS (better than SSL 465)
+        props.put("mail.smtp.port", "465");  // ✅ Use 465 for SSL
+        props.put("mail.smtp.ssl.enable", "true");  // ✅ SSL Enabled
+        props.put("mail.smtp.starttls.enable", "false");  // ❌ TLS is NOT used on port 465
         return props;
     }
 

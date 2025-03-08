@@ -50,7 +50,7 @@ public  class TestBrowsers {
 
     @BeforeMethod
     @Parameters({"browser"})
-    public void setUp(@Optional("firefox") String browser) {
+    public void setUp(@Optional("chrome") String browser) {
         driver = getDriver(browser);
 //        ThreadLocal_driver.set(driver);
 

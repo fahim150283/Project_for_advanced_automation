@@ -1,14 +1,5 @@
 package Utilities;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
-
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.*;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-
 public class TestConfig {
     public static String mailServer;
     public static String from;
@@ -34,12 +25,25 @@ public class TestConfig {
         messageBody = "Yo Yo, this is the test email containing the automation test report. Please find the attached files.";
 
         attachmentPaths = new String[]{
-                "screenshot/testScreenshotOnFail-2025_03_03-09_39.jpg",
+                "screenshot/testScreenshotOnFail-2025_03_08-10_58.jpg",
                 "logs/app-2025-03-02_10-29-15.log"
         };
 
+        try {
+            Thread.sleep(3000); // Wait 5 seconds to ensure all screenshots & logs are saved
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // Call sendMail after configuration
-        MonitoringMail.sendMail(mailServer, from, password, to, subject, messageBody, attachmentPaths);
+//        MonitoringMail.sendMail(
+//                mailServer,
+//                from,
+//                password,
+//                to,
+//                subject,
+//                messageBody,
+//                attachmentPaths
+//        );
     }
 }
 
