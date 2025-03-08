@@ -12,24 +12,19 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 public class TestScreenshotUsingAshot extends TestBrowsers{
 
 	public static void sshot(String methodname) throws IOException {
-
-//		Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);
-//		ImageIO.write(screenshot.getImage(), "jpg", new File(".\\screenshot\\"+methodname+"_"+System.currentTimeMillis()+".jpg"));
-
 		Screenshot screenshot = new AShot()
-				.shootingStrategy(ShootingStrategies.viewportPasting(1000))
+				.shootingStrategy(ShootingStrategies.viewportPasting(Integer.MAX_VALUE)) // Ensures full-page capture
+				.shootingStrategy(ShootingStrategies.scaling(2.0f)) // Scales the capture for better results
 				.takeScreenshot(driver);
 
-		// Use File.separator to make path OS-independent
 		String directory = "." + File.separator + "screenshot";
 		File dir = new File(directory);
 		if (!dir.exists()) {
-			dir.mkdirs(); // Create directory if it doesn't exist
+			dir.mkdirs();
 		}
+
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm");
 		String currentDate = LocalDateTime.now().format(dtf);
-		System.out.println(currentDate);
-		// Construct the full path
 		String filePath = directory + File.separator + methodname + "-" + currentDate + ".jpg";
 
 		ImageIO.write(screenshot.getImage(), "jpg", new File(filePath));
