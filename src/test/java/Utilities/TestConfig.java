@@ -16,17 +16,15 @@ public class TestConfig {
 
         to = new String[]{
                 "fahim150283@gmail.com",
-                "hixopuli@teleg.eu",
-                "piknitokki@gufum.com",
-                "sejanac462@calmpros.com"
+                "niltikerka@gufum.com",
+                "pkogid23583@oziere.com"
         };
 
         subject = "Test Report of Automation Test";
         messageBody = "Yo Yo, this is the test email containing the automation test report. Please find the attached files.";
 
         attachmentPaths = new String[]{
-                "screenshot/testScreenshotOnFail-2025_03_08-10_58.jpg",
-                "logs/app-2025-03-02_10-29-15.log"
+                "Reports/report.zip"
         };
 
         try {

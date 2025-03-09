@@ -16,10 +16,15 @@ public class Main {
         String mailServer = "smtp.gmail.com";
         String from = "ahchowdhury.off@gmail.com";
         String password = "pumisiskddaexjcc"; // Use your password or app password here
-        String[] to = {"fahim150283@gmail.com", "haspapedro@gufum.com"};
+        String[] to = new String[]{
+                "fahim150283@gmail.com",
+                "fahim150283@yahoo.com",
+                "niltikerka@gufum.com",
+                "pkogid23583@oziere.com"
+        };
         String subject = "Test Email";
         String messageBody = "Hello, this is a test email.";
-        String[] attachmentPaths = {"C:\\Users\\TechTeam-08\\Downloads\\list of popular mobile devices.pdf", "C:\\Users\\TechTeam-08\\Downloads\\CH-250122-001-0001.xlsx"};
+        String[] attachmentPaths = {"Reports\\report.zip"};
         boolean debug = true; // Set to true for debugging
         Properties props = getProperties(mailServer);
 

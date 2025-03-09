@@ -19,7 +19,7 @@ import java.io.File;
 public class MonitoringMail {
 
     public static void sendMail(String mailServer, String from, String password, String[] to, String subject, String messageBody, String[] attachmentPaths) {
-        boolean debug = false;
+        boolean debug = true; // Set to true for debugging
         Properties props = getProperties(mailServer);
 
         // Authenticator with correct credentials
@@ -65,14 +65,8 @@ public class MonitoringMail {
             message.setContent(multipart);
 
             for (int i = 0; i < to.length; i++) {
-                System.out.println(to[i]+": All the to");
+                System.out.println(to[i] + ": All the to");
             }
-            System.out.println( "This is the debug info: " +
-                    mailServer+ " - "+
-                    from+ " - "+
-                    password+ " - "+
-                    subject+ " - "+
-                    messageBody+ " - ");
 
             // Send email
             Transport.send(message);
@@ -85,17 +79,14 @@ public class MonitoringMail {
 
     private static Properties getProperties(String mailServer) {
         Properties props = new Properties();
-        System.setProperty("https.protocols", "TLSv1.2");
-        System.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", mailServer);
-        props.put("mail.smtp.port", "465");  // ✅ Use 465 for SSL
-        props.put("mail.smtp.ssl.enable", "true");  // ✅ SSL Enabled
-        props.put("mail.smtp.starttls.enable", "false");  // ❌ TLS is NOT used on port 465
+        props.put("mail.smtp.port", "587");  // Use 587 for TLS
+        props.put("mail.smtp.starttls.enable", "true");  // Enable STARTTLS
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2 TLSv1.3");  // Enable TLS 1.2 and TLS 1.3
         return props;
     }
 
-    // Fixed Authenticator to use credentials passed to sendMail()
     private static class SMTPAuthenticator extends Authenticator {
         private final String username;
         private final String password;
