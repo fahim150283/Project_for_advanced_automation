@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args) {
         String mailServer = "smtp.gmail.com";
         String from = "ahchowdhury.off@gmail.com";
-        String password = "password";
+        String password = "pumisiskddaexjcc"; // Use your password or app password here
         String[] to = {"fahim150283@gmail.com", "haspapedro@gufum.com"};
         String subject = "Test Email";
         String messageBody = "Hello, this is a test email.";
@@ -80,15 +80,11 @@ public class Main {
 
     private static Properties getProperties(String mailServer) {
         Properties props = new Properties();
-        // Explicitly setting TLSv1.2
-        System.setProperty("https.protocols", "TLSv1.2");
-
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", mailServer);
-        props.put("mail.smtp.port", "587"); // Use 587 for STARTTLS
-        props.put("mail.smtp.starttls.enable", "true"); // Enable STARTTLS
-        props.put("mail.smtp.ssl.enable", "false"); // Disable SSL (because we're using STARTTLS on port 587)
-
+        props.put("mail.smtp.port", "587");  // Use 587 for TLS
+        props.put("mail.smtp.starttls.enable", "true");  // Enable STARTTLS
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2 TLSv1.3");  // Enable TLS 1.2 and TLS 1.3
         return props;
     }
 
