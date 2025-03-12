@@ -1,110 +1,70 @@
 package org.example;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class Main {
     public static void main(String[] args) {
-        String mailServer = "smtp.gmail.com";
-        String from = "ahchowdhury.off@gmail.com";
-        String password = "pumisiskddaexjcc"; // Use your password or app password here
-        String[] to = new String[]{
-                "fahim150283@gmail.com",
-                "fahim150283@yahoo.com",
-                "niltikerka@gufum.com",
-                "pkogid23583@oziere.com"
-        };
-        String subject = "Test Email";
-        String messageBody = "Hello, this is a test email.";
-        String[] attachmentPaths = {"Reports\\report.zip"};
-        boolean debug = true; // Set to true for debugging
-        Properties props = getProperties(mailServer);
 
-        // Authenticator with correct credentials
-        Authenticator auth = new SMTPAuthenticator(from, password);
-        Session session = Session.getInstance(props, auth);
-        session.setDebug(debug);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm");
+        String currentDate = LocalDateTime.now().format(dtf);
+        String zipFilePath = "Reports for Email/Reports"+currentDate+".zip",
+                folderPath = "screenshot";
+        zipFilePath(folderPath,zipFilePath);
+    }
 
+    private static void zipFilePath(String folderPath, String zipFilePath) {
         try {
-            Message message = new MimeMessage(session);
-            message.addHeader("X-Priority", "1");
-            message.setFrom(new InternetAddress(from));
+            File folder = new File(folderPath);
+            File[] files = folder.listFiles();
 
-            InternetAddress[] addressTo = new InternetAddress[to.length];
-            for (int i = 0; i < to.length; i++) {
-                addressTo[i] = new InternetAddress(to[i]);
+            if (files == null || files.length == 0) {
+                System.out.println("No screenshots to zip.");
+                return;
             }
-            message.setRecipients(Message.RecipientType.TO, addressTo);
-            message.setSubject(subject);
 
-            // Email body
-            MimeBodyPart bodyPart = new MimeBodyPart();
-            bodyPart.setContent(messageBody, "text/html");
+            String today = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
 
-            // Attachments
-            MimeMultipart multipart = new MimeMultipart();
-            multipart.addBodyPart(bodyPart);
+            FileOutputStream fos = new FileOutputStream(zipFilePath);
+            ZipOutputStream zipOut = new ZipOutputStream(fos);
 
-            for (String filePath : attachmentPaths) {
-                if (filePath != null && !filePath.isEmpty()) {
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        MimeBodyPart attachmentPart = new MimeBodyPart();
-                        DataSource source = new FileDataSource(file);
-                        attachmentPart.setDataHandler(new DataHandler(source));
-                        attachmentPart.setFileName(file.getName());
-                        multipart.addBodyPart(attachmentPart);
-                    } else {
-                        System.out.println("Attachment not found: " + filePath);
+            boolean filesAdded = false;
+
+            for (File file : files) {
+                if (file.isFile() && file.getName().contains(today)) { // Filter files with today's date
+                    FileInputStream fis = new FileInputStream(file);
+                    ZipEntry zipEntry = new ZipEntry(file.getName());
+                    zipOut.putNextEntry(zipEntry);
+
+                    byte[] bytes = new byte[1024];
+                    int length;
+                    while ((length = fis.read(bytes)) >= 0) {
+                        zipOut.write(bytes, 0, length);
                     }
+
+                    fis.close();
+                    filesAdded = true;
                 }
             }
 
-            message.setContent(multipart);
+            zipOut.close();
+            fos.close();
 
-            for (int i = 0; i < to.length; i++) {
-                System.out.println(to[i] + ": All the to");
+            if (filesAdded) {
+                System.out.println("Screenshots zipped successfully.");
+            } else {
+                System.out.println("No screenshots found for today's date: " + today);
             }
-
-            // Send email
-            Transport.send(message);
-            System.out.println("Successfully sent mail with attachments!");
-
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static Properties getProperties(String mailServer) {
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", mailServer);
-        props.put("mail.smtp.port", "587");  // Use 587 for TLS
-        props.put("mail.smtp.starttls.enable", "true");  // Enable STARTTLS
-        props.put("mail.smtp.ssl.protocols", "TLSv1.2 TLSv1.3");  // Enable TLS 1.2 and TLS 1.3
-        return props;
-    }
-
-    private static class SMTPAuthenticator extends Authenticator {
-        private final String username;
-        private final String password;
-
-        public SMTPAuthenticator(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(username, password);
-        }
-    }
 }

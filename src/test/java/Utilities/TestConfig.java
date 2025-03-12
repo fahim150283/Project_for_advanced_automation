@@ -1,5 +1,11 @@
 package Utilities;
 
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static Utilities.MonitoringMail.zipScreenshots;
+
 public class TestConfig {
     public static String mailServer;
     public static String from;
@@ -8,6 +14,7 @@ public class TestConfig {
     public static String subject;
     public static String messageBody;
     public static String[] attachmentPaths;
+    public static String zipfilepath,folderpath;
 
     static {
         mailServer = "smtp.gmail.com";
@@ -16,33 +23,34 @@ public class TestConfig {
 
         to = new String[]{
                 "fahim150283@gmail.com",
-                "niltikerka@gufum.com",
-                "pkogid23583@oziere.com"
+                "fahim150283@yahoo.com"
         };
 
-        subject = "Test Report of Automation Test";
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("hh:mm a - dd/MM/yyyy");
+        String formattedDate = localDateTime.format(myFormatObj);
+
+        subject = "Automation Test Report On " + formattedDate;
         messageBody = "Yo Yo, this is the test email containing the automation test report. Please find the attached files.";
 
-        attachmentPaths = new String[]{
-                "Reports/report.zip"
-        };
+
+        String reportsDir = "Reports for Email";
+
+        // Ensure "Reports for Email" directory exists
+        File reportsFolder = new File(reportsDir);
+        if (!reportsFolder.exists()) {
+            reportsFolder.mkdirs(); // Creates directory if it doesn't exist
+        }
+
+        zipfilepath = reportsDir + "/report_" + formattedDate + ".zip";
+        folderpath = "screenshot";
+        zipScreenshots(folderpath, zipfilepath);
+        attachmentPaths = new String[]{zipfilepath};
 
         try {
-            Thread.sleep(3000); // Wait 5 seconds to ensure all screenshots & logs are saved
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // Call sendMail after configuration
-//        MonitoringMail.sendMail(
-//                mailServer,
-//                from,
-//                password,
-//                to,
-//                subject,
-//                messageBody,
-//                attachmentPaths
-//        );
     }
 }
-
-

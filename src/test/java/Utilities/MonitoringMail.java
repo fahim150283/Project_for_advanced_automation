@@ -1,5 +1,10 @@
 package Utilities;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -15,6 +20,8 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import java.io.File;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class MonitoringMail {
 
@@ -75,6 +82,55 @@ public class MonitoringMail {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void zipScreenshots(String folderPath, String zipFilePath) {
+        try {
+            System.out.println("the zip function is called");
+            File folder = new File(folderPath);
+            File[] files = folder.listFiles();
+
+            if (files == null || files.length == 0) {
+                System.out.println("No screenshots to zip.");
+                return;
+            }
+
+            String today = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
+
+            FileOutputStream fos = new FileOutputStream((zipFilePath));
+            ZipOutputStream zipOut = new ZipOutputStream(fos);
+
+            boolean filesAdded = false;
+
+            for (File file : files) {
+                if (file.isFile() && file.getName().contains(today)) { // Filter files with today's date
+                    FileInputStream fis = new FileInputStream(file);
+                    ZipEntry zipEntry = new ZipEntry(file.getName());
+                    zipOut.putNextEntry(zipEntry);
+
+                    byte[] bytes = new byte[1024];
+                    int length;
+                    while ((length = fis.read(bytes)) >= 0) {
+                        zipOut.write(bytes, 0, length);
+                    }
+
+                    fis.close();
+                    filesAdded = true;
+                }
+            }
+
+            zipOut.close();
+            fos.close();
+
+            if (filesAdded) {
+                System.out.println("Screenshots zipped successfully.");
+            } else {
+                System.out.println("No screenshots found for today's date: " + today);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static Properties getProperties(String mailServer) {

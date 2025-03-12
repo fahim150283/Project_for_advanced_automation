@@ -2,18 +2,11 @@ package Utilities;
 
 import TestCases.TestBrowsers;
 import TestCases.TestScreenshotUsingAshot;
-import org.apache.commons.io.FileUtils;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import static Utilities.MonitoringMail.zipScreenshots;
 
 public class TestListeners extends TestBrowsers implements ITestListener {
 
@@ -59,7 +52,8 @@ public class TestListeners extends TestBrowsers implements ITestListener {
 
     @Override
     public void onFinish(ITestContext context) {
-        ITestListener.super.onFinish(context);{
+        ITestListener.super.onFinish(context);
+        {
             System.out.println("All tests finished. Sending email...");
 
             // Send test results email with attachments
@@ -73,56 +67,6 @@ public class TestListeners extends TestBrowsers implements ITestListener {
                     TestConfig.attachmentPaths  // Corrected parameter to pass multiple attachments
             );
         }
-    }
-
-
-
-        public static void zipScreenshots(String folderPath, String zipFilePath) {
-            try {
-                File folder = new File(folderPath);
-                File[] files = folder.listFiles();
-
-                if (files == null || files.length == 0) {
-                    System.out.println("No screenshots to zip.");
-                    return;
-                }
-
-                String today = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
-
-                FileOutputStream fos = new FileOutputStream(zipFilePath);
-                ZipOutputStream zipOut = new ZipOutputStream(fos);
-
-                boolean filesAdded = false;
-
-                for (File file : files) {
-                    if (file.isFile() && file.getName().contains(today)) { // Filter files with today's date
-                        FileInputStream fis = new FileInputStream(file);
-                        ZipEntry zipEntry = new ZipEntry(file.getName());
-                        zipOut.putNextEntry(zipEntry);
-
-                        byte[] bytes = new byte[1024];
-                        int length;
-                        while ((length = fis.read(bytes)) >= 0) {
-                            zipOut.write(bytes, 0, length);
-                        }
-
-                        fis.close();
-                        filesAdded = true;
-                    }
-                }
-
-                zipOut.close();
-                fos.close();
-
-                if (filesAdded) {
-                    System.out.println("Screenshots zipped successfully.");
-                } else {
-                    System.out.println("No screenshots found for today's date: " + today);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
     }
 
 
