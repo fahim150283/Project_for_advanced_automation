@@ -12,13 +12,13 @@ import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 public class TestScreenshotUsingAshot extends TestBrowsers {
 
-	public static void sshot(String methodname) throws IOException {
+	public static void sshot(String methodname, String SavePath) throws IOException {
 		Screenshot screenshot = new AShot()
 				.shootingStrategy(ShootingStrategies.viewportPasting(Integer.MAX_VALUE)) // Ensures full-page capture
 				.shootingStrategy(ShootingStrategies.scaling(2.0f)) // Scales the capture for better results
 				.takeScreenshot(driver);
 
-		String directory = "." + File.separator + "screenshot";
+		String directory = SavePath;
 		File dir = new File(directory);
 		if (!dir.exists()) {
 			dir.mkdirs();

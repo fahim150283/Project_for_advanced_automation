@@ -10,6 +10,8 @@ import java.util.List;
 
 public class TestListeners extends TestBrowsers implements ITestListener, ISuiteListener {
     private ISuite suite;
+    public static String REPORT_DIR;
+    public static String reportFolderName;
 
     @Override
     public void onStart(ISuite suite) {
@@ -19,6 +21,15 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
     @Override
     public void onTestStart(ITestResult result) {
         System.out.println("Test Started: " + result.getMethod().getMethodName());
+        // Generate timestamped report name
+        REPORT_DIR = "Reports for Email";
+        File reportFolder = new File(REPORT_DIR);
+        if (!reportFolder.exists()) {
+            reportFolder.mkdirs();
+        }
+        String timestamp = new SimpleDateFormat("dd_MM_yy hh_mm a").format(new Date());
+        reportFolderName = REPORT_DIR + "/TestNG Report of " + timestamp;
+
     }
 
     @Override
@@ -30,7 +41,7 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
     public void onTestFailure(ITestResult result) {
         String methodName = result.getMethod().getMethodName();
         try {
-            TestScreenshotUsingAshot.sshot(methodName);  // Capture screenshot on failure
+            TestScreenshotUsingAshot.sshot(methodName,reportFolderName);  // Capture screenshot on failure
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,21 +72,13 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
         ITestListener.super.onFinish(context);
         {
             System.out.println("All tests finished. Sending email...");
-            // Generate timestamped report name
-            String REPORT_DIR = "Reports for Email";
-            File reportFolder = new File(REPORT_DIR);
-            if (!reportFolder.exists()) {
-                reportFolder.mkdirs();
-            }
-            String timestamp = new SimpleDateFormat("dd_MM_yy hh_mm a").format(new Date());
-            String reportFileName = REPORT_DIR + "/TestNG Report of " + timestamp + ".html";
 
             // Generate the TestNG report
             EmailableReporter2 report = new EmailableReporter2();
             report.generateReport(
                     List.of(context.getSuite().getXmlSuite()),  // Fix: Provide List<XmlSuite>
                     List.of(context.getSuite()),                // Fix: Provide List<ISuite>
-                    REPORT_DIR                      // Fix: Output directory
+                    reportFolderName                      // Fix: Output directory
             );
 
             // Send test results email with attachments

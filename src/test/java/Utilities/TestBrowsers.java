@@ -2,7 +2,9 @@ package Utilities;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.*;
 import org.testng.log4testng.Logger;
@@ -34,16 +36,19 @@ public  class TestBrowsers {
     public static String id;
     public static String cssSelector;
     public static Wait<WebDriver> fluentwait;
-    static WebDriverWait wait;
+    public static WebDriverWait wait;
 
     private WebDriver getDriver(String browser) {
         System.out.println("✅ Selected Browser: " + browser); // Debugging output
         if (browser.equalsIgnoreCase("firefox")) {
-            driver = new FirefoxDriver();
-//            System.out.println("✅ Firefox Driver initialized!");
-        } else if (browser.equalsIgnoreCase("chrome")) {
-            driver = new ChromeDriver();
-//            System.out.println("✅ Chrome Driver initialized!");
+            FirefoxOptions options = new FirefoxOptions();
+            options.addArguments("--headless");
+            driver = new FirefoxDriver(options);
+        }
+        else if (browser.equalsIgnoreCase("chrome")) {
+            ChromeOptions options = new ChromeOptions();
+            options.addArguments("--headless");
+            driver = new ChromeDriver(options);
         }
         return driver;
     }

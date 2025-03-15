@@ -1,5 +1,5 @@
 <suite
-        name="ParallelSuite"
+        name="sequential"
         parallel="methods"
 >
 
@@ -17,7 +17,7 @@
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="TestCases.TestScreenshotOnFail"/>
+            <class name="TestCases.Assignments"/>
 <!--            <class name="TestCases.Assignments"/>-->
         </classes>
     </test>

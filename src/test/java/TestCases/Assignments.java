@@ -11,7 +11,7 @@ public class Assignments extends TestBrowsers {
 
 //    @Test
     public static void Assignment1() {
-        wait.until(
+        fluentwait.until(
                 d -> {
                     try {
                         // navigate to google
@@ -88,7 +88,7 @@ public class Assignments extends TestBrowsers {
                         submitButton.click();
 
                         log.info("Form submitted successfully!");
-                        xpath = "//*[@id=\"alert\"]";
+                        xpath = "//*[@id=\"alertk\"]";
 //                        Thread.sleep(1000);
                         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
                         log.info("this is the alert message : " + driver.findElement(By.xpath(xpath)).getText());
