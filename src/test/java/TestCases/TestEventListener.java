@@ -1,5 +1,6 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.openqa.selenium.NoAlertPresentException;
 import org.testng.annotations.Test;
 

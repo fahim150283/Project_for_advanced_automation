@@ -1,5 +1,6 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;

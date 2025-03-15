@@ -1,12 +1,13 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v127.security.Security;
 import org.testng.annotations.Test;
 
-public class TestBadSSL extends TestBrowsers{
+public class TestBadSSL extends TestBrowsers {
 
     @Test
     public static void TestBadSSL() throws InterruptedException {

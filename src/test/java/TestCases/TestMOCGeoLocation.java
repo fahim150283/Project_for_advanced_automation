@@ -1,5 +1,6 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.Optional;
 
-public class TestMOCGeoLocation extends TestBrowsers{
+public class TestMOCGeoLocation extends TestBrowsers {
 
     @Test
     public static void TestMOCGeoLocation() throws InterruptedException {

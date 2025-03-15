@@ -4,19 +4,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import Utilities.TestBrowsers;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import org.testng.annotations.Test;
 
-public class TestIFrames extends TestBrowsers{
+public class TestIFrames extends TestBrowsers {
 	
 	public static void captureScreenshot() throws IOException {
 		

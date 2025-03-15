@@ -1,5 +1,6 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasAuthentication;
 import org.openqa.selenium.UsernameAndPassword;

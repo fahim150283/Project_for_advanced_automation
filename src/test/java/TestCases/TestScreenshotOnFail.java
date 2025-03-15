@@ -1,9 +1,8 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-
-import java.io.IOException;
 
 public class TestScreenshotOnFail extends TestBrowsers {
 

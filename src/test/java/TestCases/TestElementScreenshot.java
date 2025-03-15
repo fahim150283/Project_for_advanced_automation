@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import Utilities.TestBrowsers;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -16,7 +17,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-public class TestElementScreenshot extends TestBrowsers{
+public class TestElementScreenshot extends TestBrowsers {
 
 	public static void captureScreenshot() throws IOException {
 

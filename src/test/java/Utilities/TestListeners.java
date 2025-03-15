@@ -1,14 +1,20 @@
 package Utilities;
 
-import TestCases.TestBrowsers;
-import TestCases.TestScreenshotUsingAshot;
-import org.testng.ITestContext;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import org.testng.*;
+import org.testng.reporters.EmailableReporter2;
 
-import static Utilities.MonitoringMail.zipScreenshots;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
-public class TestListeners extends TestBrowsers implements ITestListener {
+public class TestListeners extends TestBrowsers implements ITestListener, ISuiteListener {
+    private ISuite suite;
+
+    @Override
+    public void onStart(ISuite suite) {
+        this.suite = suite;
+    }
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -55,6 +61,22 @@ public class TestListeners extends TestBrowsers implements ITestListener {
         ITestListener.super.onFinish(context);
         {
             System.out.println("All tests finished. Sending email...");
+            // Generate timestamped report name
+            String REPORT_DIR = "Reports for Email";
+            File reportFolder = new File(REPORT_DIR);
+            if (!reportFolder.exists()) {
+                reportFolder.mkdirs();
+            }
+            String timestamp = new SimpleDateFormat("dd_MM_yy hh_mm a").format(new Date());
+            String reportFileName = REPORT_DIR + "/TestNG Report of " + timestamp + ".html";
+
+            // Generate the TestNG report
+            EmailableReporter2 report = new EmailableReporter2();
+            report.generateReport(
+                    List.of(context.getSuite().getXmlSuite()),  // Fix: Provide List<XmlSuite>
+                    List.of(context.getSuite()),                // Fix: Provide List<ISuite>
+                    REPORT_DIR                      // Fix: Output directory
+            );
 
             // Send test results email with attachments
             MonitoringMail.sendMail(

@@ -1,5 +1,6 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 

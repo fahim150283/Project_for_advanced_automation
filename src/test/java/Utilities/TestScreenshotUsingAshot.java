@@ -1,15 +1,16 @@
-package TestCases;
+package Utilities;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.imageio.ImageIO;
+
 import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
-public class TestScreenshotUsingAshot extends TestBrowsers{
+public class TestScreenshotUsingAshot extends TestBrowsers {
 
 	public static void sshot(String methodname) throws IOException {
 		Screenshot screenshot = new AShot()

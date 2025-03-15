@@ -1,7 +1,7 @@
 package ExcelReader.Parameterization;
 
 import ExcelReader.ExcelReader;
-import TestCases.TestBrowsers;
+import Utilities.TestBrowsers;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
