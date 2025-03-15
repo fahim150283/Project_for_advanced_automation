@@ -1,21 +1,16 @@
 package TestCases;
 
+import Utilities.TestBrowsers;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.testng.annotations.Test;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import javax.imageio.ImageIO;
-
-import Utilities.TestBrowsers;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.Test;
 
 public class TestElementScreenshot extends TestBrowsers {
 

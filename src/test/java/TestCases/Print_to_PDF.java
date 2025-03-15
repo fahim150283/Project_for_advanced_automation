@@ -1,13 +1,6 @@
 package TestCases;
 
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import Utilities.TestBrowsers;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -19,6 +12,12 @@ import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Print_to_PDF extends TestBrowsers {
 

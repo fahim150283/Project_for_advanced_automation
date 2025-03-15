@@ -1,6 +1,6 @@
 <suite
-        name="sequential"
-        parallel="methods"
+        name="ParallelSuite"
+        parallel="suites"
 >
 
     <listeners>

@@ -1,24 +1,18 @@
 package Utilities;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -85,51 +79,47 @@ public class MonitoringMail {
 
     public static void zipScreenshots(String folderPath, String zipFilePath) {
         try {
-            System.out.println("the zip function is called");
-            File folder = new File(folderPath);
-            File[] files = folder.listFiles();
+            System.out.println("Zipping all contents of the folder: " + folderPath);
 
-            if (files == null || files.length == 0) {
-                System.out.println("No screenshots to zip.");
+            File folder = new File(folderPath);
+            if (!folder.exists() || folder.listFiles() == null || folder.listFiles().length == 0) {
+                System.out.println("No files or folders to zip.");
                 return;
             }
 
-            String today = new SimpleDateFormat("yyyy_MM_dd").format(new Date());
-
-            FileOutputStream fos = new FileOutputStream((zipFilePath));
+            FileOutputStream fos = new FileOutputStream(zipFilePath);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
 
-            boolean filesAdded = false;
-
-            for (File file : files) {
-                if (file.isFile() && file.getName().contains(today)) { // Filter files with today's date
-                    FileInputStream fis = new FileInputStream(file);
-                    ZipEntry zipEntry = new ZipEntry(file.getName());
-                    zipOut.putNextEntry(zipEntry);
-
-                    byte[] bytes = new byte[1024];
-                    int length;
-                    while ((length = fis.read(bytes)) >= 0) {
-                        zipOut.write(bytes, 0, length);
-                    }
-
-                    fis.close();
-                    filesAdded = true;
-                }
+            for (File file : folder.listFiles()) {
+                zipFile(file, file.getName(), zipOut);
             }
 
             zipOut.close();
             fos.close();
 
-            if (filesAdded) {
-                System.out.println("Screenshots zipped successfully.");
-            } else {
-                System.out.println("No screenshots found for today's date: " + today);
-            }
+            System.out.println("All contents zipped successfully: " + zipFilePath);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private static void zipFile(File file, String zipEntryName, ZipOutputStream zipOut) throws IOException, IOException {
+        if (file.isDirectory()) {
+            for (File childFile : file.listFiles()) {
+                zipFile(childFile, zipEntryName + "/" + childFile.getName(), zipOut);
+            }
+        } else {
+            try (FileInputStream fis = new FileInputStream(file)) {
+                ZipEntry zipEntry = new ZipEntry(zipEntryName);
+                zipOut.putNextEntry(zipEntry);
+
+                byte[] bytes = new byte[1024];
+                int length;
+                while ((length = fis.read(bytes)) >= 0) {
+                    zipOut.write(bytes, 0, length);
+                }
+            }
+        }
     }
 
     private static Properties getProperties(String mailServer) {
