@@ -70,29 +70,44 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
     @Override
     public void onFinish(ITestContext context) {
         ITestListener.super.onFinish(context);
-        {
-            System.out.println("All tests finished. Sending email...");
 
-            // Generate the TestNG report
-            EmailableReporter2 report = new EmailableReporter2();
-            report.generateReport(
-                    List.of(context.getSuite().getXmlSuite()),  // Fix: Provide List<XmlSuite>
-                    List.of(context.getSuite()),                // Fix: Provide List<ISuite>
-                    reportFolderName                      // Fix: Output directory
-            );
+        System.out.println("All tests finished. Waiting for TestNG to finalize reports...");
 
-            // Send test results email with attachments
-            MonitoringMail.sendMail(
-                    TestConfig.mailServer,
-                    TestConfig.from,
-                    TestConfig.password,
-                    TestConfig.to,
-                    TestConfig.subject,
-                    TestConfig.messageBody,
-                    TestConfig.attachmentPaths  // Corrected parameter to pass multiple attachments
-            );
+        try {
+            Thread.sleep(5000);  // Wait for TestNG to finalize reports
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+        // Ensure the report directory exists
+        File reportDir = new File(reportFolderName);
+        if (!reportDir.exists()) {
+            reportDir.mkdirs();
+        }
+
+        // Generate the TestNG emailable report
+        System.out.println("Generating TestNG emailable report...");
+        EmailableReporter2 report = new EmailableReporter2();
+        report.generateReport(
+                List.of(context.getSuite().getXmlSuite()),  // Ensure XmlSuite is correctly provided
+                List.of(context.getSuite()),                // Ensure ISuite list is correctly provided
+                reportFolderName                            // Correct output directory
+        );
+
+        System.out.println("Report generated successfully!");
+
+        // Send test results email with attachments
+        MonitoringMail.sendMail(
+                TestConfig.mailServer,
+                TestConfig.from,
+                TestConfig.password,
+                TestConfig.to,
+                TestConfig.subject,
+                TestConfig.messageBody,
+                TestConfig.attachmentPaths  // Corrected parameter to pass multiple attachments
+        );
     }
+
 
 
     @Override

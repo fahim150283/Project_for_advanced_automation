@@ -9,12 +9,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Properties;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public class MonitoringMail {
 
@@ -74,51 +69,6 @@ public class MonitoringMail {
 
         } catch (MessagingException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static void zipScreenshots(String folderPath, String zipFilePath) {
-        try {
-            System.out.println("Zipping all contents of the folder: " + folderPath);
-
-            File folder = new File(folderPath);
-            if (!folder.exists() || folder.listFiles() == null || folder.listFiles().length == 0) {
-                System.out.println("No files or folders to zip.");
-                return;
-            }
-
-            FileOutputStream fos = new FileOutputStream(zipFilePath);
-            ZipOutputStream zipOut = new ZipOutputStream(fos);
-
-            for (File file : folder.listFiles()) {
-                zipFile(file, file.getName(), zipOut);
-            }
-
-            zipOut.close();
-            fos.close();
-
-            System.out.println("All contents zipped successfully: " + zipFilePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void zipFile(File file, String zipEntryName, ZipOutputStream zipOut) throws IOException, IOException {
-        if (file.isDirectory()) {
-            for (File childFile : file.listFiles()) {
-                zipFile(childFile, zipEntryName + "/" + childFile.getName(), zipOut);
-            }
-        } else {
-            try (FileInputStream fis = new FileInputStream(file)) {
-                ZipEntry zipEntry = new ZipEntry(zipEntryName);
-                zipOut.putNextEntry(zipEntry);
-
-                byte[] bytes = new byte[1024];
-                int length;
-                while ((length = fis.read(bytes)) >= 0) {
-                    zipOut.write(bytes, 0, length);
-                }
-            }
         }
     }
 
