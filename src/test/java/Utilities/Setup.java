@@ -35,7 +35,7 @@ public  class Setup {
     }
 
     public static WebDriver driver;
-//    public static ThreadLocal<WebDriver> ThreadLocal_driver = new ThreadLocal<>();
+    //    public static ThreadLocal<WebDriver> ThreadLocal_driver = new ThreadLocal<>();
     static String browser;
 
     //variables for ease of code
@@ -45,25 +45,31 @@ public  class Setup {
     public static Wait<WebDriver> fluentwait;
     public static WebDriverWait wait;
 
-    private WebDriver getDriver(String browser) {
+    private WebDriver getDriver(String browser , String headless) {
         System.out.println("✅ Selected Browser: " + browser); // Debugging output
         if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--headless");
+            if (headless.equalsIgnoreCase("true")) {
+                options.addArguments("--headless"); // Enable headless mode
+                options.addArguments("--disable-gpu"); // Disable GPU for headless mode
+            }
             driver = new FirefoxDriver(options);
         }
         else if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
+            if (headless.equalsIgnoreCase("true")) {
+                options.addArguments("--headless"); // Enable headless mode
+                options.addArguments("--disable-gpu"); // Disable GPU for headless mode
+            }
             driver = new ChromeDriver(options);
         }
         return driver;
     }
 
     @BeforeMethod
-    @Parameters({"browser"})
-    public void setUp(@Optional("chrome") String browser) {
-        driver = getDriver(browser);
+    @Parameters({"browser", "headless"})
+    public void setUp(@Optional("chrome") String browser, String headless) {
+        driver = getDriver(browser, headless);
 //        ThreadLocal_driver.set(driver);
 
         //waits
@@ -86,7 +92,7 @@ public  class Setup {
     }
 
     @AfterMethod
-    public static void afterTest() throws InterruptedException {
+    public void afterTest() throws InterruptedException {
 //        Thread.sleep(2000);
 // close all the browsers
 //        if (ThreadLocal_driver.get() != null) {
