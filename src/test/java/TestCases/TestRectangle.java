@@ -1,13 +1,13 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
-public class TestRectangle extends TestBrowsers {
+public class TestRectangle extends Setup {
 
 
     @Test

@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public class Assignments extends TestBrowsers {
+public class Assignments extends Setup {
 
 //    @Test
     public static void Assignment1() {

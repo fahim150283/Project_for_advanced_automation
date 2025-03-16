@@ -1,13 +1,13 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
-public class TestTheAlerts extends TestBrowsers {
+public class TestTheAlerts extends Setup {
 
     @Test
     public static void AlertAccept() {

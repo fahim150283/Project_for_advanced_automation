@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v129.network.Network;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class TestRequestAndResposneHeaders extends TestBrowsers {
+public class TestRequestAndResposneHeaders extends Setup {
 
     @Test
     public void testRequestAndResponseHeaders() {

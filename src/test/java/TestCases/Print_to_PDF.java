@@ -1,7 +1,7 @@
 package TestCases;
 
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.print.PrintOptions;
@@ -19,7 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Print_to_PDF extends TestBrowsers {
+public class Print_to_PDF extends Setup {
 
     @Test
     public static void Print_to_PDF() throws Exception {

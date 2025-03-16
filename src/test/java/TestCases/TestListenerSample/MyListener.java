@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverListener;
 
-import static Utilities.TestBrowsers.log;
+import static Utilities.Setup.log;
 
 public class MyListener implements WebDriverListener {
 

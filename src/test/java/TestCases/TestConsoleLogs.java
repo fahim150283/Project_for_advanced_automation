@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.devtools.v127.console.Console;
 import org.openqa.selenium.devtools.v129.log.Log;
 import org.testng.annotations.Test;
 
-public class TestConsoleLogs extends TestBrowsers {
+public class TestConsoleLogs extends Setup {
 
     @Test
     public static void ConsoleLogs() {

@@ -1,13 +1,13 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.HasAuthentication;
 import org.openqa.selenium.UsernameAndPassword;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
-public class TestBasicAuth extends TestBrowsers {
+public class TestBasicAuth extends Setup {
 
     @Test
     public static void BasicAuth() {

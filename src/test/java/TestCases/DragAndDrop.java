@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class DragAndDrop extends TestBrowsers {
+public class DragAndDrop extends Setup {
 
     @Test
     public static void dragAndDrop() throws InterruptedException {

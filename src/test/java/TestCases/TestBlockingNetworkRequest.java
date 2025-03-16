@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import com.google.common.collect.ImmutableList;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.Optional;
 
-public class TestBlockingNetworkRequest extends TestBrowsers {
+public class TestBlockingNetworkRequest extends Setup {
 
     @Test
     public static void BlockingNetworkRequest() throws InterruptedException {

@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +11,7 @@ import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class TestHandlingCalendars extends TestBrowsers {
+public class TestHandlingCalendars extends Setup {
 
 
     static int targetDay = 0,

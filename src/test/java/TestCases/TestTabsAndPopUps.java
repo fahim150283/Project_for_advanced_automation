@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.util.Iterator;
 import java.util.Set;
 
-public class TestTabsAndPopUps extends TestBrowsers {
+public class TestTabsAndPopUps extends Setup {
 
     @Test
     public void testTabsAndPopUps() throws InterruptedException {

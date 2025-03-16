@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TestScreenshotUsingAshot extends TestBrowsers {
+public class TakeScreenshotUsingAshot extends Setup {
 
-	public static void sshot(String methodname, String SavePath) throws IOException {
+	public static void sshot(String methodname, String SavePath) throws IOException, InterruptedException {
+		Thread.sleep(2000);
 		Screenshot screenshot = new AShot()
 				.shootingStrategy(ShootingStrategies.viewportPasting(Integer.MAX_VALUE)) // Ensures full-page capture
 				.shootingStrategy(ShootingStrategies.scaling(2.0f)) // Scales the capture for better results

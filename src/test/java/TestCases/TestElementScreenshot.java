@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.testng.annotations.Test;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class TestElementScreenshot extends TestBrowsers {
+public class TestElementScreenshot extends Setup {
 
 	public static void captureScreenshot() throws IOException {
 

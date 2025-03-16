@@ -22,13 +22,13 @@ import java.util.regex.Pattern;
 
 import static org.testng.log4testng.Logger.getLogger;
 
-public  class TestBrowsers {
+public  class Setup {
 
     public static Logger log;
 
     static {
         try {
-            log = getLogger(Class.forName(TestBrowsers.class.getName()));
+            log = getLogger(Class.forName(Setup.class.getName()));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

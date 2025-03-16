@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -34,7 +35,17 @@ public class TestConfig {
         String formattedDate = localDateTime.format(myFormatObj);
 
         subject = "Automation Test Report On " + formattedDate;
-        messageBody = "Yo Yo, this is the test email containing the automation test report. Please find the attached files.";
+        messageBody =
+                "<html>" +
+                        "<body style='font-family: Arial, sans-serif; font-size: 14px; color: #333;'>" +
+                        "   <p>Greetings!</p>" +
+                        "   <p>This email contains the automation test report. Please find the attached files for details.</p>" +
+                        "   <p>Thank you.</p>" +
+                        "   <p style='font-size: 12px;'>Best regards,<br>Automation Team</p>" +
+                        "   <p>" +
+                        "   <p color=#FF0000><strong>NB:</strong> This is an auto-generated email. Please do not reply.</p>" +
+                        "</body>" +
+                        "</html>";
 
 
         String reportsDir = "Reports for Email";
@@ -100,5 +111,11 @@ public class TestConfig {
                 }
             }
         }
+    }
+
+    public static int GenerateRandomNumber() {
+        Random rand = new Random();
+        int ranNum = rand.nextInt(1000000);
+        return ranNum;
     }
 }

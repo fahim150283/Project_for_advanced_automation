@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import java.util.List;
 import java.util.Optional;
 
-public class TestPerformanceMonitor extends TestBrowsers {
+public class TestPerformanceMonitor extends Setup {
 
     @Test
     public void testPerformanceMonitor() throws InterruptedException {

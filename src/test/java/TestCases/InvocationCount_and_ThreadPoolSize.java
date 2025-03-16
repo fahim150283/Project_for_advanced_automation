@@ -1,10 +1,10 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class InvocationCount_and_ThreadPoolSize extends TestBrowsers {
+public class InvocationCount_and_ThreadPoolSize extends Setup {
     SoftAssert softAssert = new SoftAssert();
 
 

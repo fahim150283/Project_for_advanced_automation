@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
@@ -10,7 +10,7 @@ import org.openqa.selenium.devtools.v129.emulation.Emulation;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.Test;
 
-public class TestOverrideTimeZone extends TestBrowsers {
+public class TestOverrideTimeZone extends Setup {
 
     @Test
     public static void overrideTimeZone() {

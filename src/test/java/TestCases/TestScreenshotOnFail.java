@@ -1,10 +1,10 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-public class TestScreenshotOnFail extends TestBrowsers {
+public class TestScreenshotOnFail extends Setup {
 
     @Test
     public void testScreenshotOnFail() {

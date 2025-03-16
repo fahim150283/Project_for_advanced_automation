@@ -2,13 +2,14 @@ package Utilities;
 
 import org.testng.*;
 import org.testng.reporters.EmailableReporter2;
+import org.testng.xml.XmlSuite;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class TestListeners extends TestBrowsers implements ITestListener, ISuiteListener {
+public class TestListeners extends Setup implements ITestListener, ISuiteListener, IReporter {
     private ISuite suite;
     public static String REPORT_DIR;
     public static String reportFolderName;
@@ -27,9 +28,8 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
         if (!reportFolder.exists()) {
             reportFolder.mkdirs();
         }
-        String timestamp = new SimpleDateFormat("dd_MM_yy hh_mm a").format(new Date());
+        String timestamp = new SimpleDateFormat("dd_MM_yy hh a").format(new Date());
         reportFolderName = REPORT_DIR + "/TestNG Report of " + timestamp;
-
     }
 
     @Override
@@ -41,7 +41,7 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
     public void onTestFailure(ITestResult result) {
         String methodName = result.getMethod().getMethodName();
         try {
-            TestScreenshotUsingAshot.sshot(methodName,reportFolderName);  // Capture screenshot on failure
+            TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);  // Capture screenshot on failure
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,29 +70,22 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
     @Override
     public void onFinish(ITestContext context) {
         ITestListener.super.onFinish(context);
-
         System.out.println("All tests finished. Waiting for TestNG to finalize reports...");
+    }
 
-        try {
-            Thread.sleep(5000);  // Wait for TestNG to finalize reports
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    @Override
+    public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
         // Ensure the report directory exists
         File reportDir = new File(reportFolderName);
         if (!reportDir.exists()) {
+            reportDir.delete();
             reportDir.mkdirs();
         }
 
         // Generate the TestNG emailable report
         System.out.println("Generating TestNG emailable report...");
         EmailableReporter2 report = new EmailableReporter2();
-        report.generateReport(
-                List.of(context.getSuite().getXmlSuite()),  // Ensure XmlSuite is correctly provided
-                List.of(context.getSuite()),                // Ensure ISuite list is correctly provided
-                reportFolderName                            // Correct output directory
-        );
+        report.generateReport(xmlSuites, suites, reportFolderName);
 
         System.out.println("Report generated successfully!");
 
@@ -107,8 +100,6 @@ public class TestListeners extends TestBrowsers implements ITestListener, ISuite
                 TestConfig.attachmentPaths  // Corrected parameter to pass multiple attachments
         );
     }
-
-
 
     @Override
     public boolean isEnabled() {

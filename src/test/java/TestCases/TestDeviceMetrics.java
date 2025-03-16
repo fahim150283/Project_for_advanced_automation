@@ -1,6 +1,6 @@
 package TestCases;
 
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v128.emulation.Emulation;
@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import java.util.Optional;
 
-public class TestDeviceMetrics extends TestBrowsers {
+public class TestDeviceMetrics extends Setup {
 
     @Test
     public static void TestDeviceMetrics() throws InterruptedException {

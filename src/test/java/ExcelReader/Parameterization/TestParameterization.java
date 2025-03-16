@@ -1,7 +1,7 @@
 package ExcelReader.Parameterization;
 
 import ExcelReader.ExcelReader;
-import Utilities.TestBrowsers;
+import Utilities.Setup;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Hashtable;
 
-public  abstract class TestParameterization extends TestBrowsers {
+public  abstract class TestParameterization extends Setup {
     private static ExcelReader excelReader;
 
     @BeforeClass
