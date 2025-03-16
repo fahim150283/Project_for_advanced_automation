@@ -1,4 +1,4 @@
-package TestCases;
+package TestCases.Assignments;
 
 import Utilities.Setup;
 import org.openqa.selenium.*;
@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
-public class Assignments extends Setup {
+public class AssignmentsBeforeSection29 extends Setup {
 
 //    @Test
     public static void Assignment1() {

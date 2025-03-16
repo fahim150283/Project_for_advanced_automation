@@ -1,24 +1,24 @@
-<suite
-        name="ParallelSuite"
-        parallel="tests"
->
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Storefront Test Suite" parallel="tests">
 
     <listeners>
         <listener class-name="Utilities.TestListeners"/>
+        <listener class-name="Utilities.RetryListner"/>
     </listeners>
 
-<!--    <test name="FirefoxTest">-->
-<!--        <parameter name="browser" value="firefox"/>-->
-<!--        <classes>-->
-<!--            <class name="TestCases.TestScreenshotOnFail"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <!--    <test name="FirefoxTest">-->
+    <!--        <parameter name="browser" value="firefox"/>-->
+    <!--    <parameter name="headless" value="true"/>-->
+    <!--        <classes>-->
+    <!--            <class name="TestCases.HomePage"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
 
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
+        <parameter name="headless" value="false"/>
         <classes>
-            <class name="TestCases.Assignments"/>
-<!--            <class name="TestCases.Assignments"/>-->
+            <class name="TestCases.Assignments.Section29.Assignment1"/>
         </classes>
     </test>
 
