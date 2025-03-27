@@ -13,24 +13,24 @@ import java.time.format.DateTimeFormatter;
 public class TakeScreenshotUsingAshot extends Setup {
 
 	public static void sshot(String methodname, String SavePath) throws IOException, InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		Screenshot screenshot = new AShot()
-				.shootingStrategy(ShootingStrategies.viewportPasting(Integer.MAX_VALUE)) // Ensures full-page capture
-				.shootingStrategy(ShootingStrategies.scaling(2.0f)) // Scales the capture for better results
+				.shootingStrategy(ShootingStrategies.simple()) // Capture only the visible area
 				.takeScreenshot(driver);
 
-		String directory = SavePath;
-		File dir = new File(directory);
+		File dir = new File(SavePath);
 		if (!dir.exists()) {
 			dir.mkdirs();
+			System.out.println("Screenshot directory created: " + SavePath);
 		}
 
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm");
 		String currentDate = LocalDateTime.now().format(dtf);
-		String filePath = directory + File.separator + methodname + "-" + currentDate + ".jpg";
+		String filePath = SavePath + File.separator + methodname + "-" + currentDate + ".jpg";
 
 		ImageIO.write(screenshot.getImage(), "jpg", new File(filePath));
 		System.out.println("Screenshot saved: " + filePath);
 	}
+
 
 }

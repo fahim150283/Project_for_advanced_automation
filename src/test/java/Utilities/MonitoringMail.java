@@ -66,7 +66,6 @@ public class MonitoringMail {
             // Send email
             Transport.send(message);
             System.out.println("Successfully sent mail with attachments!");
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }

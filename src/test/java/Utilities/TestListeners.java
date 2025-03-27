@@ -13,6 +13,8 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
     private ISuite suite;
     public static String REPORT_DIR;
     public static String reportFolderName;
+    public static String failedMethodNames;
+    public static String failedFolderNames;
 
     @Override
     public void onStart(ISuite suite) {
@@ -26,6 +28,9 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
         REPORT_DIR = "Reports for Email";
         File reportFolder = new File(REPORT_DIR);
         if (!reportFolder.exists()) {
+            reportFolder.mkdirs();
+        }else {
+            TestConfig.deleteDirectory(reportFolder);
             reportFolder.mkdirs();
         }
         String timestamp = new SimpleDateFormat("dd_MM_yy hh a").format(new Date());
@@ -78,7 +83,6 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
         // Ensure the report directory exists
         File reportDir = new File(reportFolderName);
         if (!reportDir.exists()) {
-            reportDir.delete();
             reportDir.mkdirs();
         }
 
@@ -89,6 +93,19 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
 
         System.out.println("Report generated successfully!");
 
+        // Create zip file
+        TestConfig.zipfilepath = reportFolderName + ".zip";
+        TestConfig.folderpath = reportFolderName;
+        TestConfig.zipScreenshots(TestConfig.folderpath, TestConfig.zipfilepath);
+
+        // Verify zip file exists
+        File zipFile = new File(TestConfig.zipfilepath);
+        if (zipFile.exists()) {
+            System.out.println("Zip file created successfully: " + TestConfig.zipfilepath);
+        } else {
+            System.out.println("Zip file not found: " + TestConfig.zipfilepath);
+        }
+
         // Send test results email with attachments
         MonitoringMail.sendMail(
                 TestConfig.mailServer,
@@ -97,7 +114,7 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
                 TestConfig.to,
                 TestConfig.subject,
                 TestConfig.messageBody,
-                TestConfig.attachmentPaths  // Corrected parameter to pass multiple attachments
+                new String[]{TestConfig.zipfilepath}  // Attach the zip file
         );
     }
 

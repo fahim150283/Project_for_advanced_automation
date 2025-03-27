@@ -1,5 +1,6 @@
 package Utilities;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -17,8 +18,6 @@ import org.testng.annotations.Parameters;
 import org.testng.log4testng.Logger;
 
 import java.time.Duration;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.testng.log4testng.Logger.getLogger;
 
@@ -53,6 +52,7 @@ public  class Setup {
                 options.addArguments("--headless"); // Enable headless mode
                 options.addArguments("--disable-gpu"); // Disable GPU for headless mode
             }
+            options.addArguments("--disable-cookies"); // Disable cookies
             driver = new FirefoxDriver(options);
         }
         else if (browser.equalsIgnoreCase("chrome")) {
@@ -61,14 +61,16 @@ public  class Setup {
                 options.addArguments("--headless"); // Enable headless mode
                 options.addArguments("--disable-gpu"); // Disable GPU for headless mode
             }
+            options.addArguments("--disable-cookies"); // Disable cookies
             driver = new ChromeDriver(options);
         }
+
         return driver;
     }
 
     @BeforeMethod
     @Parameters({"browser", "headless"})
-    public void setUp(@Optional("chrome") String browser, String headless) {
+    public void setUp(@Optional("chrome") String browser, @Optional("false") String headless) {
         driver = getDriver(browser, headless);
 //        ThreadLocal_driver.set(driver);
 
@@ -99,41 +101,8 @@ public  class Setup {
 //            ThreadLocal_driver.get().close();
 //        }
         if (driver != null) {
-            driver.close();
+            driver.quit();
         }
     }
 
-
-    public static int calculateResult(String input) {
-        try {
-            // Use regex to extract the operands and the operator. Improved regex to handle spaces
-            Pattern pattern = Pattern.compile("(\\d+)\\s*([+\\-*/])\\s*(\\d+)\\s*=");
-            Matcher matcher = pattern.matcher(input);
-
-            if (matcher.find()) {
-                int operand1 = Integer.parseInt(matcher.group(1));
-                String operator = matcher.group(2);
-                int operand2 = Integer.parseInt(matcher.group(3));
-
-                switch (operator) {
-                    case "+":
-                        return operand1 + operand2;
-                    case "-":
-                        return operand1 - operand2;
-                    case "*":
-                        return operand1 * operand2;
-                    case "/":
-                        return operand1 / operand2; // Be cautious about division by zero
-                    default:
-                        return Integer.MIN_VALUE; // Indicate invalid operator
-                }
-            } else {
-                return Integer.MIN_VALUE; // Indicate no match/invalid input
-            }
-        } catch (NumberFormatException e) {
-            return Integer.MIN_VALUE; // Indicate parsing error
-        } catch (ArithmeticException e) {
-            return Integer.MIN_VALUE; // Indicate arithmetic error like division by zero
-        }
-    }
 }

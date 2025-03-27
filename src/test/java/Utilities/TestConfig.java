@@ -26,8 +26,10 @@ public class TestConfig {
         password = "pumisiskddaexjcc"; // this is an App Password
 
         to = new String[]{
-                "fahim150283@gmail.com",
                 "fahim150283@yahoo.com"
+
+                ,"it_head@ghorerbazar.com ",
+                "emtiaz.gb@gmail.com"
         };
 
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -117,5 +119,20 @@ public class TestConfig {
         Random rand = new Random();
         int ranNum = rand.nextInt(1000000);
         return ranNum;
+    }
+
+    /**
+     * Helper method to recursively delete a directory and its contents.
+     */
+    public static void deleteDirectory(File directory) {
+        if (directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    deleteDirectory(file); // Recursively delete files and subdirectories
+                }
+            }
+        }
+        directory.delete(); // Delete the directory itself
     }
 }
