@@ -128,6 +128,24 @@ public class AssignmentsBeforeSection29 extends Setup {
                 });
     }
 
+    private static int calculateResult(String mathQuestion) {
+        String[] parts = mathQuestion.split(" ");
+        int num1 = Integer.parseInt(parts[0]);
+        String operator = parts[1];
+        int num2 = Integer.parseInt(parts[2]);
+        int result = 0;
+        if (operator.equals("+")) {
+            result = num1 + num2;
+        } else if (operator.equals("-")) {
+            result = num1 - num2;
+        } else if (operator.equals("*")) {
+            result = num1 * num2;
+        } else if (operator.equals("/")) {
+            result = num1 / num2;
+        }
+        return result;
+    }
+
     @Test
     public static void Assignment4() {
         fluentwait.until(
