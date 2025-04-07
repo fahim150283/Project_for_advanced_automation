@@ -1,5 +1,9 @@
 package Utilities;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import static Utilities.Setup.driver;
 
 public class TestConfig {
     public static String mailServer;
@@ -135,4 +141,6 @@ public class TestConfig {
         }
         directory.delete(); // Delete the directory itself
     }
+
+
 }

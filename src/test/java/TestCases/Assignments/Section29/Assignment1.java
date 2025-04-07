@@ -93,8 +93,8 @@ public class Assignment1 extends Utilities.Setup {
                     else {
                         serialNumber++;
                         String flightName = driver.findElement(By.xpath("//*[@id=\"listing-id\"]/div/div[2]/div/div[" + (i + 1) + "]/div[1]/div[3]/div[1]/div/div/div/p[1]/div")).getText();
-                        String price = driver.findElement(By.xpath("//*[@id=\"listing-id\"]/div/div[2]/div/div[" + (i + 1) + "]/div[1]/div[3]/div[2]/div/div/div")).getText().replace("[^0-9]", "");
-                        System.out.println(serialNumber + ". " + flightName + " - " + price);
+                        String price = driver.findElement(By.xpath("//*[@id=\"listing-id\"]/div/div[2]/div/div[" + (i + 1) + "]/div[1]/div[3]/div[2]/div/div/div")).getText().replaceAll("[^0-9]", "");
+                        System.out.println(serialNumber + ". " + flightName + " - " + price + " BDT");
                     }
                 }
 
