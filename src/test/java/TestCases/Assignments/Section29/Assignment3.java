@@ -21,7 +21,7 @@ public class Assignment3 extends Setup {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
 
         //click the first result
-        xpath = "/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[1]/span[1]/div[1]/div[3]/div[1]/div[1]/span[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/a[1]/h2[1]/span[1]";
+        xpath = "//*[@data-index=\"5\"]//div/div/span/div/div/div/div[2]/div/div/div[1]/a";
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
 
         //copy the name and price of the first result
@@ -29,9 +29,9 @@ public class Assignment3 extends Setup {
         String name = driver.findElement(By.xpath(xpath)).getText();
         System.out.println("name is: "+name);
         xpath = "//*[@id=\"corePriceDisplay_desktop_feature_div\"]/div[1]/span[2]/span[2]/span[2]";
-        String price = driver.findElement(By.xpath(xpath)).getText().replace("$", "").replace(",", "").replace(".", "");
+        String price = driver.findElement(By.xpath(xpath)).getText().replace("₹", "").replace("$", "").replace(",", "").replace(".", "");
         xpath = "//*[@id=\"corePriceDisplay_desktop_feature_div\"]/div[1]/span[3]/span[2]/span[3]";
-        price += driver.findElement(By.xpath(xpath)).getText().replace("$", "").replace(",", "").replace(".", "");
+        price += driver.findElement(By.xpath(xpath)).getText().replace("₹", "").replace("$", "").replace(",", "").replace(".", "");
         System.out.println("price is: "+price);
 
         //click the add to cart button
@@ -43,7 +43,7 @@ public class Assignment3 extends Setup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).click();
 
         //get the name and price of the first item in the cart
-        xpath = "//*[@id=\"sc-active-0353edd1-5a7b-4d55-91a5-66606bc2cc53\"]/div[4]/div/div[2]/ul/li/span/a/span[1]/h4/span/span[2]";
+        xpath = "//*[class=\"sc-list-item-content\"]/div[4]/div/div[2]/ul/li/span/a/span[1]/h4/span/span[2]";
         String cartName = driver.findElement(By.xpath(xpath)).getText().replace("...", "");
         System.out.println("cart name is: "+cartName);
         xpath = "//*[@id=\"sc-active-0353edd1-5a7b-4d55-91a5-66606bc2cc53\"]/div[4]/div/div[2]/ul/div[1]/div/div/div/span/span/span[2]";
