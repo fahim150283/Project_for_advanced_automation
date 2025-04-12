@@ -46,7 +46,7 @@ public class Assignment3 extends Setup {
         xpath = "//*[class=\"sc-list-item-content\"]/div[4]/div/div[2]/ul/li/span/a/span[1]/h4/span/span[2]";
         String cartName = driver.findElement(By.xpath(xpath)).getText().replace("...", "");
         System.out.println("cart name is: "+cartName);
-        xpath = "//*[@id=\"sc-active-0353edd1-5a7b-4d55-91a5-66606bc2cc53\"]/div[4]/div/div[2]/ul/div[1]/div/div/div/span/span/span[2]";
+        xpath = "//div[4]/div/div[2]/ul/div[1]/div/div/div/span/span/span[2]";
         String cartPrice = driver.findElement(By.xpath(xpath)).getText().replace("$", "").replace(",", "").replace(".", "");
         System.out.println("cart price is: "+cartPrice);
 
