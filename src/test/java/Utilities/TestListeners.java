@@ -148,7 +148,9 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
         // Generate the TestNG emailable report
         System.out.println("Generating TestNG emailable report...");
         EmailableReporter2 report = new EmailableReporter2();
-        report.generateReport(xmlSuites, suites, reportFolderName);
+
+        // Generate the TestNG report
+//        report.generateReport(xmlSuites, suites, reportFolderName);
 
         System.out.println("Report generated successfully!");
 
