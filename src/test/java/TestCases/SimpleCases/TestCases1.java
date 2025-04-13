@@ -14,7 +14,13 @@ public class TestCases1 extends Setup {
 
     @Test
     public void testFail() {
+        driver.get("https://google.com");
         System.out.println("Executing Fail Test");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Assert.fail("Intentional Failure for demo.");
     }
 

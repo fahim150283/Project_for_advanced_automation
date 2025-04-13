@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -80,7 +81,7 @@ public class TestConfig {
             System.out.println("Zipping all contents of the folder: " + folderPath);
 
             File folder = new File(folderPath);
-            if (!folder.exists() || folder.listFiles() == null || folder.listFiles().length == 0) {
+            if (!folder.exists() || folder.listFiles() == null || Objects.requireNonNull(folder.listFiles()).length == 0) {
                 System.out.println("No files or folders to zip.");
                 return;
             }
@@ -103,7 +104,7 @@ public class TestConfig {
 
     private static void zipFile(File file, String zipEntryName, ZipOutputStream zipOut) throws IOException, IOException {
         if (file.isDirectory()) {
-            for (File childFile : file.listFiles()) {
+            for (File childFile : Objects.requireNonNull(file.listFiles())) {
                 zipFile(childFile, zipEntryName + "/" + childFile.getName(), zipOut);
             }
         } else {

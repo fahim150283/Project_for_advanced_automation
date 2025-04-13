@@ -3,7 +3,7 @@
 
     <listeners>
         <listener class-name="Utilities.TestListeners"/>
-        <listener class-name="Utilities.RetryListner"/>
+<!--        <listener class-name="Utilities.RetryListner"/>-->
     </listeners>
 
     <!--    <test name="FirefoxTest">-->

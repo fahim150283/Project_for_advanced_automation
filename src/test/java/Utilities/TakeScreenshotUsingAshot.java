@@ -15,23 +15,25 @@ public class TakeScreenshotUsingAshot extends Setup {
 	public static String sshot(String methodname, String SavePath) throws IOException, InterruptedException {
 		Thread.sleep(200);
 		Screenshot screenshot = new AShot()
-				.shootingStrategy(ShootingStrategies.simple()) // Capture only the visible area
+				.shootingStrategy(ShootingStrategies.simple())
 				.takeScreenshot(driver);
 
-		File dir = new File(SavePath);
-		if (!dir.exists()) {
-			dir.mkdirs();
-			System.out.println("Screenshot directory created: " + SavePath);
+		// Create screenshots directory if it doesn't exist
+		File screenshotsDir = new File(SavePath + "/screenshots");
+		if (!screenshotsDir.exists()) {
+			screenshotsDir.mkdirs();
+			System.out.println("Screenshot directory created: " + screenshotsDir.getAbsolutePath());
 		}
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm");
-		String currentDate = LocalDateTime.now().format(dtf);
-		String filePath = SavePath + File.separator + methodname + "-" + currentDate + ".jpg";
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm_ss");
+		String timestamp = LocalDateTime.now().format(dtf);
+		String fileName = methodname + "-" + timestamp + ".png";
+		String filePath = screenshotsDir.getAbsolutePath() + File.separator + fileName;
 
-		ImageIO.write(screenshot.getImage(), "jpg", new File(filePath));
+		ImageIO.write(screenshot.getImage(), "png", new File(filePath));
 		System.out.println("Screenshot saved: " + filePath);
-		return currentDate;
+
+		// Return relative path from report directory
+		return "screenshots/" + fileName;
 	}
-
-
 }

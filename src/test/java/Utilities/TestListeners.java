@@ -2,6 +2,7 @@ package Utilities;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
@@ -86,11 +87,16 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
     public void onTestFailure(ITestResult result) {
         methodName = result.getMethod().getMethodName().toUpperCase();
         try {
-            String screenshotPath = TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);
-            extentTest.get().fail("Test Failed Screenshot").addScreenCaptureFromPath(screenshotPath);
+            // Capture screenshot and get relative path
+            String screenshotRelativePath = TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);
+
+            // Attach screenshot to report
+            extentTest.get().fail("Test Failed Screenshot",
+                    MediaEntityBuilder.createScreenCaptureFromPath(screenshotRelativePath).build());
         } catch (Exception e) {
             extentTest.get().warning("Failed to capture screenshot: " + e.getMessage());
         }
+
         Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.RED);
         extentTest.get().fail(m);
         extentTest.get().fail(result.getThrowable());
