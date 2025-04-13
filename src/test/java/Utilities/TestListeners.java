@@ -7,7 +7,6 @@ import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-import org.apache.poi.sl.usermodel.ObjectMetaData;
 import org.testng.*;
 import org.testng.reporters.EmailableReporter2;
 import org.testng.xml.XmlSuite;
@@ -45,7 +44,7 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
 
 
         // Setup Extent Spark Reporter - do this once
-        spark = new ExtentSparkReporter("./" + reportFolderName + "/ExtentReport.html");
+        spark = new ExtentSparkReporter("./" + reportFolderName + "/Test Report - Extent.html");
         spark.config().setEncoding("utf-8");
         spark.config().setDocumentTitle("Automation Extent Report");
         spark.config().setReportName("Automation Extent Report");
