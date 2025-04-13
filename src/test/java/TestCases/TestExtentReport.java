@@ -82,9 +82,9 @@ public class TestExtentReport {
     @AfterMethod
     public void tearDown(ITestResult result) {
         String methodName = result.getMethod().getMethodName().toUpperCase();
-        String stackTrace = result.getThrowable() != null
-                ? Arrays.toString(result.getThrowable().getStackTrace())
-                : "";
+//        String stackTrace = result.getThrowable() != null
+//                ? Arrays.toString(result.getThrowable().getStackTrace())
+//                : "";
 
         if (result.getStatus() == ITestResult.FAILURE) {
             Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.RED);

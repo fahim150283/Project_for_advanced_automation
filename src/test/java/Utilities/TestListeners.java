@@ -1,5 +1,13 @@
 package Utilities;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+import org.apache.poi.sl.usermodel.ObjectMetaData;
 import org.testng.*;
 import org.testng.reporters.EmailableReporter2;
 import org.testng.xml.XmlSuite;
@@ -13,69 +21,120 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
     private ISuite suite;
     public static String REPORT_DIR;
     public static String reportFolderName;
-    public static String failedMethodNames;
-    public static String failedFolderNames;
+    public static ExtentSparkReporter spark;
+    public static ExtentReports extent;
+    private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+    public static String methodName;
 
     @Override
     public void onStart(ISuite suite) {
         this.suite = suite;
-    }
 
-    @Override
-    public void onTestStart(ITestResult result) {
-        System.out.println("Test Started: " + result.getMethod().getMethodName());
-        // Generate timestamped report name
+        // Initialize report directory once at suite start
         REPORT_DIR = "Reports for Email";
         File reportFolder = new File(REPORT_DIR);
         if (!reportFolder.exists()) {
             reportFolder.mkdirs();
-        }else {
+        } else {
             TestConfig.deleteDirectory(reportFolder);
             reportFolder.mkdirs();
         }
+
         String timestamp = new SimpleDateFormat("dd_MM_yy hh a").format(new Date());
-        reportFolderName = REPORT_DIR + "/TestNG Report of " + timestamp;
+        reportFolderName = REPORT_DIR + "/Automation Test Report of " + timestamp;
+
+
+        // Setup Extent Spark Reporter - do this once
+        spark = new ExtentSparkReporter("./" + reportFolderName + "/ExtentReport.html");
+        spark.config().setEncoding("utf-8");
+        spark.config().setDocumentTitle("Automation Extent Report");
+        spark.config().setReportName("Automation Extent Report");
+        spark.config().setTheme(Theme.DARK);
+
+        extent = new ExtentReports();
+        extent.attachReporter(spark);
+
+        // Add environment info
+        String projectName = new File(System.getProperty("user.dir")).getName();
+        extent.setSystemInfo("Project", projectName.toUpperCase());
+        extent.setSystemInfo("Tester", "Fahim");
+        extent.setSystemInfo("Role", "SQA Engineer");
+        extent.setSystemInfo("Type", "Automation Testing");
+    }
+
+    @Override
+    public void onTestStart(ITestResult result) {
+        System.out.println("Test Started: " + result.getMethod().getMethodName().toUpperCase());
+        methodName = result.getMethod().getMethodName();
+        extentTest.set(extent.createTest(methodName));
+
+        // Add test parameters if any
+        Object[] parameters = result.getParameters();
+        if (parameters != null && parameters.length > 0) {
+            extentTest.get().info("Test Parameters: " + String.join(", ", parameters.toString()));
+        }
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        System.out.println("Test Passed: " + result.getMethod().getMethodName());
+        System.out.println("Test Passed: " + result.getMethod().getMethodName().toUpperCase());
+        methodName = result.getMethod().getMethodName().toUpperCase();
+        Markup m = MarkupHelper.createLabel(methodName + " - PASSED", ExtentColor.GREEN);
+        extentTest.get().pass(m);
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        String methodName = result.getMethod().getMethodName();
+        methodName = result.getMethod().getMethodName().toUpperCase();
         try {
-            TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);  // Capture screenshot on failure
+            String screenshotPath = TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);
+            extentTest.get().fail("Test Failed Screenshot").addScreenCaptureFromPath(screenshotPath);
         } catch (Exception e) {
-            e.printStackTrace();
+            extentTest.get().warning("Failed to capture screenshot: " + e.getMessage());
         }
+        Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.RED);
+        extentTest.get().fail(m);
+        extentTest.get().fail(result.getThrowable());
     }
 
     @Override
     public void onTestSkipped(ITestResult result) {
-        System.out.println("Test Skipped: " + result.getMethod().getMethodName());
+        System.out.println("Test Skipped: " + result.getMethod().getMethodName().toUpperCase());
+        methodName = result.getMethod().getMethodName().toUpperCase();
+        Markup m = MarkupHelper.createLabel(methodName + " - SKIPPED", ExtentColor.ORANGE);
+        extentTest.get().skip(m);
+        extentTest.get().skip("Skip Reason: " + result.getThrowable());
     }
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
+        // Optional implementation
+        methodName = result.getMethod().getMethodName().toUpperCase();
+        extentTest.get().warning("Test failed but within success percentage: " + methodName);
     }
 
     @Override
     public void onTestFailedWithTimeout(ITestResult result) {
-        ITestListener.super.onTestFailedWithTimeout(result);
+        methodName = result.getMethod().getMethodName().toUpperCase();
+        extentTest.get().fail("Test failed due to timeout: " + methodName);
     }
 
     @Override
     public void onStart(ITestContext context) {
-        ITestListener.super.onStart(context);
+        // Optional implementation
+        System.out.println("Test Context started: " + context.getName());
     }
 
     @Override
     public void onFinish(ITestContext context) {
-        ITestListener.super.onFinish(context);
-        System.out.println("All tests finished. Waiting for TestNG to finalize reports...");
+        // Optional implementation
+        System.out.println("Test Context finished: " + context.getName());
+    }
+
+    @Override
+    public void onFinish(ISuite suite) {
+        System.out.println("All tests finished. Finalizing reports...");
+        extent.flush();
     }
 
     @Override
@@ -116,10 +175,5 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
                 TestConfig.messageBody,
                 new String[]{TestConfig.zipfilepath}  // Attach the zip file
         );
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return ITestListener.super.isEnabled();
     }
 }

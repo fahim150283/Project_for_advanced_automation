@@ -34,8 +34,7 @@ public class TestConfig {
         to = new String[]{
                 "fahim150283@yahoo.com"
 
-                ,"it_head@ghorerbazar.com ",
-                "emtiaz.gb@gmail.com"
+                ,"fahim150283@gameil.com"
         };
 
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -141,6 +140,4 @@ public class TestConfig {
         }
         directory.delete(); // Delete the directory itself
     }
-
-
 }

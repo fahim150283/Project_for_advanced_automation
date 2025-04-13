@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TakeScreenshotUsingAshot extends Setup {
 
-	public static void sshot(String methodname, String SavePath) throws IOException, InterruptedException {
+	public static String sshot(String methodname, String SavePath) throws IOException, InterruptedException {
 		Thread.sleep(200);
 		Screenshot screenshot = new AShot()
 				.shootingStrategy(ShootingStrategies.simple()) // Capture only the visible area
@@ -30,6 +30,7 @@ public class TakeScreenshotUsingAshot extends Setup {
 
 		ImageIO.write(screenshot.getImage(), "jpg", new File(filePath));
 		System.out.println("Screenshot saved: " + filePath);
+		return currentDate;
 	}
 
 

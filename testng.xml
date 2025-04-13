@@ -18,7 +18,8 @@
         <parameter name="browser" value="chrome"/>
         <parameter name="headless" value="false"/>
         <classes>
-            <class name="TestCases.Assignments.Section29.Assignment1"/>
+            <class name="TestCases.SimpleCases.TestCases1"/>
+            <class name="TestCases.SimpleCases.TestCases2"/>
         </classes>
     </test>
 

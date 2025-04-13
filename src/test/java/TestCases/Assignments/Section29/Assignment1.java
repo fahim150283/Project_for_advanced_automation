@@ -40,7 +40,7 @@ public class Assignment1 extends Utilities.Setup {
                 //search for a place
                 xpath = "//div[@id=\'top-banner\']/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/input";
                 driver.findElement(By.xpath(xpath)).sendKeys("new york");
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 //select the first option
                 xpath = "//*[@id=\"react-autowhatever-1-section-0-item-0\"]";
                 wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
@@ -51,12 +51,12 @@ public class Assignment1 extends Utilities.Setup {
                 //search for a place
                 xpath = "//*[@id=\"top-banner\"]/div[2]/div/div/div/div/div[2]/div[1]/div[2]/div[1]/div/div/div/input";
                 driver.findElement(By.xpath(xpath)).sendKeys("london");
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 //select the first option
                 xpath = "//*[@id=\"react-autowhatever-1-section-0-item-0\"]/div";
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
                 //select first date
                 xpath = "//*[@id=\"top-banner\"]/div[2]/div/div/div/div/div[2]/div[1]/div[3]/div[1]/div/div/div/div[2]/div/div[2]/div[1]/div[3]/div[3]/div[4]";
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
@@ -65,14 +65,14 @@ public class Assignment1 extends Utilities.Setup {
                 xpath = "//*[@id=\"top-banner\"]/div[2]/div/div/div/div/div[2]/div[1]/div[3]/div[1]/div/div/div/div[2]/div/div[2]/div[2]/div[3]/div[2]/div[1]/div";
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
 
-                Thread.sleep(1000);
+                Thread.sleep(2000);
 
                 //click search
                 xpath = "//*[@id=\"top-banner\"]/div[2]/div/div/div/div/div[2]/p";
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))).click();
 
                 //Scroll to load more items
-                Thread.sleep(10000);
+                Thread.sleep(17000);
                 xpath = "//*[@id=\"listing-id\"]/div/div[2]/div/div[1]";
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"listing-id\"]/div/div[2]/div/div[1]")));
                 JavascriptExecutor js = (JavascriptExecutor) driver;
