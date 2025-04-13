@@ -87,12 +87,12 @@ public class TestExtentReport {
                 : "";
 
         if (result.getStatus() == ITestResult.FAILURE) {
-            Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.PINK);
+            Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.RED);
             test.fail(m);
             test.fail("Exception: " + result.getThrowable());
         }
         else if (result.getStatus() == ITestResult.SKIP) {
-            Markup m = MarkupHelper.createLabel(methodName + " - SKIPPED", ExtentColor.AMBER);
+            Markup m = MarkupHelper.createLabel(methodName + " - SKIPPED", ExtentColor.ORANGE);
             test.skip(m);
             test.skip("Skip Reason: " + result.getThrowable());
         }
