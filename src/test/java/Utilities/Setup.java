@@ -17,6 +17,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.log4testng.Logger;
 
+import java.io.File;
 import java.time.Duration;
 
 import static org.testng.log4testng.Logger.getLogger;
@@ -27,6 +28,7 @@ public  class Setup {
 
     static {
         try {
+            TestConfig.deleteDirectory(new File("./logs"));
             log = getLogger(Class.forName(Setup.class.getName()));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);

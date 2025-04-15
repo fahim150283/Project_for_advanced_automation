@@ -4,6 +4,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -17,7 +18,6 @@ public class TestListenersforAllureReport implements ITestListener {
 
     public void onTestStart(ITestResult result) {
         // TODO Auto-generated method stub
-
     }
 
     public void onTestSuccess(ITestResult result) {
@@ -26,11 +26,8 @@ public class TestListenersforAllureReport implements ITestListener {
     }
 
     public void onTestFailure(ITestResult result) {
-
-
-
         try {
-            is = new FileInputStream("C:\\Users\\Fahim150283\\Pictures\\Screenshots\\Screenshot 2024-12-20 203629.png");
+            is = new FileInputStream("C:\\Users\\TechTeam-08\\Pictures\\Camera Roll\\8t6ojqvtqm4a1.png");
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -53,6 +50,7 @@ public class TestListenersforAllureReport implements ITestListener {
     public void onStart(ITestContext context) {
         // TODO Auto-generated method stub
 
+        TestConfig.deleteDirectory(new File("./allure-results"));
     }
 
     public void onFinish(ITestContext context) {

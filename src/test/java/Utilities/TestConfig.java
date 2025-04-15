@@ -4,10 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -25,53 +22,54 @@ public class TestConfig {
     public static String subject;
     public static String messageBody;
     public static String[] attachmentPaths;
-    public static String zipfilepath,folderpath;
+    public static String zipfilepath, folderpath;
 
     static {
-        mailServer = "smtp.gmail.com";
-        from = "ahchowdhury.off@gmail.com";
-        password = "pumisiskddaexjcc"; // this is an App Password
-
-        to = new String[]{
-                "fahim150283@yahoo.com"
-
-                ,"fahim150283@gameil.com"
-        };
-
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("hh:mm a - dd/MM/yyyy");
-        String formattedDate = localDateTime.format(myFormatObj);
-
-        subject = "Automation Test Report On " + formattedDate;
-        messageBody =
-                "<html>" +
-                        "<body style='font-family: Arial, sans-serif; font-size: 14px; color: #333;'>" +
-                        "   <p>Greetings!</p>" +
-                        "   <p>This email contains the automation test report. Please find the attached files for details.</p>" +
-                        "   <p>Thank you.</p>" +
-                        "   <p style='font-size: 12px;'>Best regards,<br>Automation Team</p>" +
-                        "   <p>" +
-                        "   <p color=#FF0000><strong>NB:</strong> This is an auto-generated email. Please do not reply.</p>" +
-                        "</body>" +
-                        "</html>";
-
-
-        String reportsDir = "Reports for Email";
-
-        // Ensure "Reports for Email" directory exists
-        File reportsFolder = new File(reportsDir);
-        if (!reportsFolder.exists()) {
-            reportsFolder.mkdirs(); // Creates directory if it doesn't exist
-        }
-
-        zipfilepath = TestListeners.reportFolderName + ".zip";
-        folderpath = TestListeners.reportFolderName;
-        zipScreenshots(folderpath, zipfilepath);
-        attachmentPaths = new String[]{zipfilepath};
-
         try {
+            mailServer = "smtp.gmail.com";
+            from = "ahchowdhury.off@gmail.com";
+            password = "pumisiskddaexjcc"; // this is an App Password
+
+            to = new String[]{
+                    "fahim150283@yahoo.com"
+
+                    , "fahim150283@gameil.com"
+            };
+
+            LocalDateTime localDateTime = LocalDateTime.now();
+            DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("hh:mm a - dd/MM/yyyy");
+            String formattedDate = localDateTime.format(myFormatObj);
+
+            subject = "Automation Test Report On " + formattedDate;
+            messageBody =
+                    "<html>" +
+                            "<body style='font-family: Arial, sans-serif; font-size: 14px; color: #333;'>" +
+                            "   <p>Greetings!</p>" +
+                            "   <p>This email contains the automation test report. Please find the attached files for details.</p>" +
+                            "   <p>Thank you.</p>" +
+                            "   <p style='font-size: 12px;'>Best regards,<br>Automation Team</p>" +
+                            "   <p>" +
+                            "   <p color=#FF0000><strong>NB:</strong> This is an auto-generated email. Please do not reply.</p>" +
+                            "</body>" +
+                            "</html>";
+
+
+            String reportsDir = "Reports for Email";
+
+            // Ensure "Reports for Email" directory exists
+            File reportsFolder = new File(reportsDir);
+            if (!reportsFolder.exists()) {
+                reportsFolder.mkdirs(); // Creates directory if it doesn't exist
+            }
+
+            zipfilepath = TestListeners.reportFolderName + ".zip";
+            folderpath = TestListeners.reportFolderName;
+            zipScreenshots(folderpath, zipfilepath);
+            attachmentPaths = new String[]{zipfilepath};
+
+
             Thread.sleep(2000);
-        } catch (InterruptedException e) {
+        } catch (NullPointerException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -97,7 +95,7 @@ public class TestConfig {
             fos.close();
 
             System.out.println("All contents zipped successfully: " + zipFilePath);
-        } catch (Exception e) {
+        } catch (NullPointerException | IOException e) {
             e.printStackTrace();
         }
     }

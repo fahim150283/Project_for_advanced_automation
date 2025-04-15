@@ -8,11 +8,14 @@ import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import io.qameta.allure.Allure;
 import org.testng.*;
 import org.testng.reporters.EmailableReporter2;
 import org.testng.xml.XmlSuite;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +41,15 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
         } else {
             TestConfig.deleteDirectory(reportFolder);
             reportFolder.mkdirs();
+        }
+
+        String AllureReport = "./allure-results";
+        File AllureReport_reportFolder = new File(AllureReport);
+        if (!AllureReport_reportFolder.exists()) {
+            AllureReport_reportFolder.mkdirs();
+        } else {
+            TestConfig.deleteDirectory(AllureReport_reportFolder);
+            AllureReport_reportFolder.mkdirs();
         }
 
         String timestamp = new SimpleDateFormat("dd_MM_yy hh a").format(new Date());
@@ -90,12 +102,17 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
             // Capture screenshot and get relative path
             String screenshotRelativePath = TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);
 
-            // Attach screenshot to report
+            //Attach screenshot to Allure report
+            InputStream img = new FileInputStream(screenshotRelativePath);
+            Allure.addAttachment("Screenshot", img);
+
+            // Attach screenshot to Extent report
             extentTest.get().fail("Test Failed Screenshot",
                     MediaEntityBuilder.createScreenCaptureFromPath(screenshotRelativePath).build());
         } catch (Exception e) {
             extentTest.get().warning("Failed to capture screenshot: " + e.getMessage());
         }
+
 
         Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.RED);
         extentTest.get().fail(m);

@@ -1,9 +1,13 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Storefront Test Suite" parallel="tests">
+<suite name="Demo Test Suite" parallel="tests">
 
     <listeners>
         <listener class-name="Utilities.TestListenersforAllureReport"/>
-<!--        <listener class-name="Utilities.RetryListner"/>-->
+
+<!--        ***************************************************************************-->
+<!--        allure serve .\allure-results  - this the command for running the report-->
+<!--        ***************************************************************************-->
+
     </listeners>
 
     <!--    <test name="FirefoxTest">-->
