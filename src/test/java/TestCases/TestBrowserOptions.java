@@ -13,7 +13,7 @@ public class TestBrowserOptions {
 
     @Test
     public static void BrowserOptions() {
-        Map<String,String> mobileEm = new HashMap<String,String>();
+        Map<String, String> mobileEm = new HashMap<String, String>();
         mobileEm.put("deviceName", "iPhone X");
 
         ChromeOptions opt = new ChromeOptions();
@@ -24,7 +24,7 @@ public class TestBrowserOptions {
         opt.addArguments("incognito");
 
         opt.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
-        opt.setExperimentalOption("mobileEmulation",mobileEm );
+        opt.setExperimentalOption("mobileEmulation", mobileEm);
 
         WebDriver driver = new ChromeDriver(opt);
         driver.get("https://selenium.dev/");

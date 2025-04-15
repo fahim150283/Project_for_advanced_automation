@@ -12,7 +12,7 @@ public class TestDeviceMetrics extends Setup {
 
     @Test
     public static void TestDeviceMetrics() throws InterruptedException {
-        DevTools devTools = ((ChromeDriver)driver).getDevTools();
+        DevTools devTools = ((ChromeDriver) driver).getDevTools();
         devTools.createSession();
         devTools.send(Emulation.setDeviceMetricsOverride(
                 480,  // Width

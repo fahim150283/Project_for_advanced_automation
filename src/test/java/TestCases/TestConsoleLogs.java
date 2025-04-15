@@ -31,8 +31,8 @@ public class TestConsoleLogs extends Setup {
                     System.out.println("Level is : " + entry.getLevel());
                 });
 
-                devTools.addListener(Console.messageAdded(), message ->{
-                    System.out.println("Console Text is : "+message.getText());
+                devTools.addListener(Console.messageAdded(), message -> {
+                    System.out.println("Console Text is : " + message.getText());
                 });
 
                 driver.get("http://flipkart.com");

@@ -67,7 +67,7 @@ public class TestHandlingCalendars extends Setup {
 
         // Select the target date
         xpath = "//div[@class=\"mbsc-calendar-table mbsc-flex-col mbsc-flex-1-1 mbsc-calendar-table-active\"]/div/div/div/div[@aria-label='" + targetDayOfWeek + ", " + getTargetmonth + " " + targetDay + ", " + targetYear + "']";
-        System.out.println(targetDayOfWeek + ", " + getTargetmonth + " " + targetDay + ", " + targetYear );
+        System.out.println(targetDayOfWeek + ", " + getTargetmonth + " " + targetDay + ", " + targetYear);
         WebElement dateElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
         dateElement.click();
 
@@ -116,7 +116,7 @@ public class TestHandlingCalendars extends Setup {
         } else if ((currentMonth - targetMonth) > 0) {
             jumpMonthsBy = (currentMonth - targetMonth);
 
-        }else{
+        } else {
             jumpMonthsBy = (currentMonth - targetMonth);
             increment = false;
         }

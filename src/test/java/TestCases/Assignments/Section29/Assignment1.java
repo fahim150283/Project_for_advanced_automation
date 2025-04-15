@@ -87,10 +87,9 @@ public class Assignment1 extends Utilities.Setup {
                 List<WebElement> flights = driver.findElements(By.xpath(xpath));
                 int serialNumber = 0;
                 for (int i = 0; i < flights.size(); i++) {
-                    if ((i+1) % 6 == 0) {
+                    if ((i + 1) % 6 == 0) {
                         //ignore
-                    }
-                    else {
+                    } else {
                         serialNumber++;
                         String flightName = driver.findElement(By.xpath("//*[@id=\"listing-id\"]/div/div[2]/div/div[" + (i + 1) + "]/div[1]/div[3]/div[1]/div/div/div/p[1]/div")).getText();
                         String price = driver.findElement(By.xpath("//*[@id=\"listing-id\"]/div/div[2]/div/div[" + (i + 1) + "]/div[1]/div[3]/div[2]/div/div/div")).getText().replaceAll("[^0-9]", "");

@@ -1,5 +1,6 @@
 package Utilities;
 
+import io.qameta.allure.Allure;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -8,8 +9,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-
-import io.qameta.allure.Allure;
 
 
 public class TestListenersforAllureReport implements ITestListener {

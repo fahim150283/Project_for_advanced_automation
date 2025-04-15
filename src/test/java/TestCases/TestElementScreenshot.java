@@ -14,50 +14,50 @@ import java.util.concurrent.TimeUnit;
 
 public class TestElementScreenshot extends Setup {
 
-	public static void captureScreenshot() throws IOException {
+    public static void captureScreenshot() throws IOException {
 
-		Date d = new Date();
-		String fileName = d.toString().replace(":", "_").replace(" ", "_") + ".jpg";
+        Date d = new Date();
+        String fileName = d.toString().replace(":", "_").replace(" ", "_") + ".jpg";
 
-		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshot, new File(".//screenshot//" + fileName));
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(screenshot, new File(".//screenshot//" + fileName));
 
-	}
+    }
 
-	public static void captureEleScreenshott(WebElement ele) throws IOException {
+    public static void captureEleScreenshott(WebElement ele) throws IOException {
 
-		Date d = new Date();
-		String fileName = d.toString().replace(":", "_").replace(" ", "_") + ".jpg";
-
-		
-		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-		BufferedImage fullImg = ImageIO.read(screenshot);
-
-		Point point = ele.getLocation();
-
-		int eleWidth = ele.getSize().getWidth();
-		int eleHeight = ele.getSize().getHeight();
-
-		BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
-		ImageIO.write(eleScreenshot, "jpg", screenshot);
-
-		File screenshotLocation = new File(".\\screenshot\\"+fileName);
-		FileUtils.copyFile(screenshot, screenshotLocation);
-
-	}
-
-	@Test
-	public static void TestElementScreenshott() throws IOException {
+        Date d = new Date();
+        String fileName = d.toString().replace(":", "_").replace(" ", "_") + ".jpg";
 
 
-		driver.get("http://www.way2automation.com/");
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
-		WebElement ele = driver.findElement(By.xpath("/html/body/div[4]/div/header/div[2]/div/div[1]"));
-		captureEleScreenshott(ele);
-		captureScreenshot();
-	}
+        BufferedImage fullImg = ImageIO.read(screenshot);
+
+        Point point = ele.getLocation();
+
+        int eleWidth = ele.getSize().getWidth();
+        int eleHeight = ele.getSize().getHeight();
+
+        BufferedImage eleScreenshot = fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
+        ImageIO.write(eleScreenshot, "jpg", screenshot);
+
+        File screenshotLocation = new File(".\\screenshot\\" + fileName);
+        FileUtils.copyFile(screenshot, screenshotLocation);
+
+    }
+
+    @Test
+    public static void TestElementScreenshott() throws IOException {
+
+
+        driver.get("http://www.way2automation.com/");
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        WebElement ele = driver.findElement(By.xpath("/html/body/div[4]/div/header/div[2]/div/div[1]"));
+        captureEleScreenshott(ele);
+        captureScreenshot();
+    }
 
 }

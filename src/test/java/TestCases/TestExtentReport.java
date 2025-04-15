@@ -7,7 +7,6 @@ import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
-
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.SkipException;
@@ -17,7 +16,6 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class TestExtentReport {
     private ExtentSparkReporter spark;
@@ -90,13 +88,11 @@ public class TestExtentReport {
             Markup m = MarkupHelper.createLabel(methodName + " - FAILED", ExtentColor.RED);
             test.fail(m);
             test.fail("Exception: " + result.getThrowable());
-        }
-        else if (result.getStatus() == ITestResult.SKIP) {
+        } else if (result.getStatus() == ITestResult.SKIP) {
             Markup m = MarkupHelper.createLabel(methodName + " - SKIPPED", ExtentColor.ORANGE);
             test.skip(m);
             test.skip("Skip Reason: " + result.getThrowable());
-        }
-        else if (result.getStatus() == ITestResult.SUCCESS) {
+        } else if (result.getStatus() == ITestResult.SUCCESS) {
             Markup m = MarkupHelper.createLabel(methodName + " - PASSED", ExtentColor.GREEN);
             test.pass(m);
         }

@@ -12,7 +12,7 @@ import java.util.List;
 public class TestGraphs extends Setup {
 
     @Test
-    public static void testGraphs(){
+    public static void testGraphs() {
         driver.get("https://canvasjs.com/javascript-charts/chart-image-overlay/");
         log.info("Navigated to: " + driver.getCurrentUrl());
 
@@ -21,11 +21,11 @@ public class TestGraphs extends Setup {
         Actions action = new Actions(driver);
         xpath = "//*[@id=\"chartContainer\"]/div/img";
 
-        List <WebElement> webElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
+        List<WebElement> webElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(xpath)));
         System.out.println(webElements.size());
         for (int i = 0; i < webElements.size(); i++) {
-            System.out.println("xpath is: "+xpath+"["+(i+1)+"]");
-            action.moveToElement(driver.findElement(By.xpath(xpath+"["+(i+1)+"]"))).click().perform();
+            System.out.println("xpath is: " + xpath + "[" + (i + 1) + "]");
+            action.moveToElement(driver.findElement(By.xpath(xpath + "[" + (i + 1) + "]"))).click().perform();
             System.out.println(driver.findElement(By.xpath("//*[@id=\"chartContainer\"]/div/div[2]/div[1]")).getText());
             System.out.println("############################################################################################################");
         }

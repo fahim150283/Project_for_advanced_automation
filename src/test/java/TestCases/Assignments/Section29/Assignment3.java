@@ -27,12 +27,12 @@ public class Assignment3 extends Setup {
         //copy the name and price of the first result
         xpath = "//*[@id=\"productTitle\"]";
         String name = driver.findElement(By.xpath(xpath)).getText();
-        System.out.println("name is: "+name);
+        System.out.println("name is: " + name);
         xpath = "//*[@id=\"corePriceDisplay_desktop_feature_div\"]/div[1]/span[2]/span[2]/span[2]";
         String price = driver.findElement(By.xpath(xpath)).getText().replace("₹", "").replace("$", "").replace(",", "").replace(".", "");
         xpath = "//*[@id=\"corePriceDisplay_desktop_feature_div\"]/div[1]/span[3]/span[2]/span[3]";
         price += driver.findElement(By.xpath(xpath)).getText().replace("₹", "").replace("$", "").replace(",", "").replace(".", "");
-        System.out.println("price is: "+price);
+        System.out.println("price is: " + price);
 
         //click the add to cart button
         xpath = "//*[@id=\"add-to-cart-button\"]";
@@ -45,10 +45,10 @@ public class Assignment3 extends Setup {
         //get the name and price of the first item in the cart
         xpath = "//*[class=\"sc-list-item-content\"]/div[4]/div/div[2]/ul/li/span/a/span[1]/h4/span/span[2]";
         String cartName = driver.findElement(By.xpath(xpath)).getText().replace("...", "");
-        System.out.println("cart name is: "+cartName);
+        System.out.println("cart name is: " + cartName);
         xpath = "//div[4]/div/div[2]/ul/div[1]/div/div/div/span/span/span[2]";
         String cartPrice = driver.findElement(By.xpath(xpath)).getText().replace("$", "").replace(",", "").replace(".", "");
-        System.out.println("cart price is: "+cartPrice);
+        System.out.println("cart price is: " + cartPrice);
 
         //compare the name and price of the first result with the name and price of the first item in the cart
         boolean nameMatch = name.contains(cartName);

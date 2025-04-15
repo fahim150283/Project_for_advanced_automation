@@ -72,7 +72,7 @@ public class TestTheAlerts extends Setup {
                         //click the signin button
                         driver.findElement(By.xpath("//input[@title='Sign in']")).click();
                         wait.until(ExpectedConditions.alertIsPresent());
-                        System.out.println(driver.switchTo().alert().getText()+" is the alert message");
+                        System.out.println(driver.switchTo().alert().getText() + " is the alert message");
 
                     } catch (NoAlertPresentException e) {
                     }

@@ -18,9 +18,9 @@ public class TestRectangle extends Setup {
 
         Rectangle rect = img.getRect();
 
-        System.out.println("Height : "+rect.getHeight());
-        System.out.println("Width : "+rect.getWidth());
-        System.out.println("X Coord : "+rect.getX());
-        System.out.println("Y Coord : "+rect.getY());
+        System.out.println("Height : " + rect.getHeight());
+        System.out.println("Width : " + rect.getWidth());
+        System.out.println("X Coord : " + rect.getX());
+        System.out.println("Y Coord : " + rect.getY());
     }
 }

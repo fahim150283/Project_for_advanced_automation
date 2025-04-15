@@ -1,4 +1,3 @@
-
 ---
 
 ```markdown
@@ -6,7 +5,7 @@
 
 This is a Java-based automation framework designed to test web applications using :
 Selenium WebDriver, TestNG, Allure Reports and ExtentReports.
-It supports reporting, database integration, screenshot capture, and utility logging. 
+It supports reporting, database integration, screenshot capture, and utility logging.
 All these make it a robust foundation for scalable automated testing.
 
 ---
@@ -32,8 +31,9 @@ All these make it a robust foundation for scalable automated testing.
 ---
 
 ## ▶️ How to Run
-   
-   ```
+
+```
+
 1. **Clone the repository::**
    ```bash
    git clone https://github.com/your-username/tutorial_project_for_automation.git
@@ -74,7 +74,6 @@ All these make it a robust foundation for scalable automated testing.
 - ✅ Utility support for file handling, data-driven tests (Apache POI)
 
 ---
-
 
 ## 📬 Author
 

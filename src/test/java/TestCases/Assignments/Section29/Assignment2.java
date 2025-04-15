@@ -1,7 +1,6 @@
 package TestCases.Assignments.Section29;
 
 import Utilities.Setup;
-import Utilities.TestConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;

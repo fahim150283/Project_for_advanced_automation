@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.Hashtable;
 
-public  abstract class TestParameterization extends Setup {
+public abstract class TestParameterization extends Setup {
     private static ExcelReader excelReader;
 
     @BeforeClass
@@ -29,7 +29,7 @@ public  abstract class TestParameterization extends Setup {
 
         fluentwait.until(
                 d -> {
-                    System.out.println("Username: " + username + " | Password: " + password + " | isCorrect: " + isCorrect+ " | fart: " + fart + " | dumb: " + dumb);
+                    System.out.println("Username: " + username + " | Password: " + password + " | isCorrect: " + isCorrect + " | fart: " + fart + " | dumb: " + dumb);
                     return true;
                 });
     }

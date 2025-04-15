@@ -15,9 +15,9 @@ public class Main {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm");
         String currentDate = LocalDateTime.now().format(dtf);
-        String zipFilePath = "Reports for Email/Reports"+currentDate+".zip",
+        String zipFilePath = "Reports for Email/Reports" + currentDate + ".zip",
                 folderPath = "screenshot";
-        zipFilePath(folderPath,zipFilePath);
+        zipFilePath(folderPath, zipFilePath);
     }
 
     private static void zipFilePath(String folderPath, String zipFilePath) {

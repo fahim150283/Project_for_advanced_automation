@@ -4,9 +4,9 @@
     <listeners>
         <listener class-name="Utilities.TestListenersforAllureReport"/>
 
-<!--        ***************************************************************************-->
-<!--        allure serve .\allure-results  - this the command for running the report-->
-<!--        ***************************************************************************-->
+        <!--        ***************************************************************************-->
+        <!--        allure serve .\allure-results  - this the command for running the report-->
+        <!--        ***************************************************************************-->
 
     </listeners>
 

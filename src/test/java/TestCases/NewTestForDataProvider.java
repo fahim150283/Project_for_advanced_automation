@@ -14,7 +14,7 @@ public class NewTestForDataProvider {
     @Test(dataProviderClass = DataProviders.class, dataProvider = "dp2")
     public void testDp2(String firstName, String lastName, String email) {
         System.out.println("Test 2");
-        System.out.println(firstName + " " + lastName+" " + email);
+        System.out.println(firstName + " " + lastName + " " + email);
     }
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "dp3")

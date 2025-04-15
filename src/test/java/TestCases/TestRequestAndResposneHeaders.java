@@ -118,10 +118,10 @@ public class TestRequestAndResposneHeaders extends Setup {
                             System.out.println("  " + key + " = " + value);
                         });
                     }
-                    System.out.println("Response URL is : "+response.getResponse().getUrl()+"  status code is : "+response.getResponse().getStatus());
+                    System.out.println("Response URL is : " + response.getResponse().getUrl() + "  status code is : " + response.getResponse().getStatus());
                 });
 
-                Map<String, Object> headers = new HashMap<String,Object>();
+                Map<String, Object> headers = new HashMap<String, Object>();
                 headers.put("This is a customHeaderName", "This is a customHeaderValue");
                 headers.put("Fahim", "The one and only Automation Tester");
                 Headers head = new Headers(headers);

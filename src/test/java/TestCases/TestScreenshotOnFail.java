@@ -12,7 +12,7 @@ public class TestScreenshotOnFail extends Setup {
             driver.get("https://www.google.com/");
             driver.findElement(By.name("qa")).sendKeys("selenium");
             driver.findElement(By.name("btnK")).click();
-        }catch (Exception e) {
+        } catch (Exception e) {
 //            try {
 //                TestScreenshotUsingAshot.sshot("testScreenshotOnFail");
 //            } catch (IOException ex) {

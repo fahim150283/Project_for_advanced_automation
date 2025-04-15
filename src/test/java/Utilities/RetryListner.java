@@ -1,4 +1,3 @@
-
 package Utilities;
 
 import org.testng.IAnnotationTransformer;
@@ -7,7 +6,7 @@ import org.testng.annotations.ITestAnnotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-public class RetryListner implements IAnnotationTransformer{
+public class RetryListner implements IAnnotationTransformer {
 
     @Override
     public void transform(ITestAnnotation arg0, Class arg1, Constructor arg2,

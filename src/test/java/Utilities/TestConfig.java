@@ -1,18 +1,15 @@
 package Utilities;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import static Utilities.Setup.driver;
 
 public class TestConfig {
     public static String mailServer;
@@ -33,7 +30,7 @@ public class TestConfig {
             to = new String[]{
                     "fahim150283@yahoo.com"
 
-                    , "fahim150283@gameil.com"
+                    , "fahim150283@gmail.com"
             };
 
             LocalDateTime localDateTime = LocalDateTime.now();
@@ -95,8 +92,9 @@ public class TestConfig {
             fos.close();
 
             System.out.println("All contents zipped successfully: " + zipFilePath);
-        } catch (NullPointerException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (NullPointerException e) {
         }
     }
 
@@ -115,6 +113,8 @@ public class TestConfig {
                 while ((length = fis.read(bytes)) >= 0) {
                     zipOut.write(bytes, 0, length);
                 }
+            } catch (NullPointerException | IOException e) {
+                e.printStackTrace();
             }
         }
     }

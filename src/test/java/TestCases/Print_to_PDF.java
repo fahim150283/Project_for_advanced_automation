@@ -64,11 +64,11 @@ public class Print_to_PDF extends Setup {
 
                         // Visible page screenshot
                         File visiblePage = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-                        FileUtils.copyFile(visiblePage, new File(screenshotFolder,"visiblePage.png"));
+                        FileUtils.copyFile(visiblePage, new File(screenshotFolder, "visiblePage.png"));
 
                         // Element screenshot
                         File elementScreenshot = element.getScreenshotAs(OutputType.FILE);
-                        FileUtils.copyFile(elementScreenshot, new File(screenshotFolder,"element.png"));
+                        FileUtils.copyFile(elementScreenshot, new File(screenshotFolder, "element.png"));
 
                         // Capture full-page screenshot using AShot
                         Screenshot fullPageScreenshot = new AShot()

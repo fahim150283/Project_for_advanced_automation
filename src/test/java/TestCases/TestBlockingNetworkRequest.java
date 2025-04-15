@@ -20,7 +20,7 @@ public class TestBlockingNetworkRequest extends Setup {
                         DevTools devTools = ((ChromeDriver) driver).getDevTools();
                         devTools.createSession();
                         devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-                        devTools.send(Network.setBlockedURLs(ImmutableList.of("*.jpg","*.png","*.jpeg")));
+                        devTools.send(Network.setBlockedURLs(ImmutableList.of("*.jpg", "*.png", "*.jpeg")));
 
                         // navigate to google
                         driver.get("https://onepagelove.com/tag/big-images");

@@ -1,6 +1,5 @@
 package Utilities;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -17,18 +16,16 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.log4testng.Logger;
 
-import java.io.File;
 import java.time.Duration;
 
 import static org.testng.log4testng.Logger.getLogger;
 
-public  class Setup {
+public class Setup {
 
     public static Logger log;
 
     static {
         try {
-            TestConfig.deleteDirectory(new File("./logs"));
             log = getLogger(Class.forName(Setup.class.getName()));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -46,7 +43,7 @@ public  class Setup {
     public static Wait<WebDriver> fluentwait;
     public static WebDriverWait wait;
 
-    private WebDriver getDriver(String browser , String headless) {
+    private WebDriver getDriver(String browser, String headless) {
         System.out.println("✅ Selected Browser: " + browser); // Debugging output
         if (browser.equalsIgnoreCase("firefox")) {
             FirefoxOptions options = new FirefoxOptions();
@@ -56,8 +53,7 @@ public  class Setup {
             }
             options.addArguments("--disable-cookies"); // Disable cookies
             driver = new FirefoxDriver(options);
-        }
-        else if (browser.equalsIgnoreCase("chrome")) {
+        } else if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             if (headless.equalsIgnoreCase("true")) {
                 options.addArguments("--headless"); // Enable headless mode

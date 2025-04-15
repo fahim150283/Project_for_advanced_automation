@@ -27,7 +27,7 @@ public class TestTabsAndPopUps extends Setup {
                     Set<String> windows = driver.getWindowHandles();
                     Iterator<String> iterator = windows.iterator();
 
-                    String [] windowArray = new String[windows.size()];
+                    String[] windowArray = new String[windows.size()];
                     for (int i = 0; i < windows.size(); i++) {
                         windowArray[i] = iterator.next();
                     }

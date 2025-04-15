@@ -29,7 +29,8 @@ public class TestOverrideTimeZone extends Setup {
                 WebElement posttimezone = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"timeZone\"]")));
                 System.out.println("posttimezone: " + posttimezone.getText());
             } catch (
-                    NoAlertPresentException | InterruptedException e) {}
+                    NoAlertPresentException | InterruptedException e) {
+            }
             return true;
         });
     }

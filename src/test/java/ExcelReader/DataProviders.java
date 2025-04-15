@@ -37,7 +37,7 @@ public class DataProviders {
     @DataProvider(name = "dp3")
     public Object[][] DataForMethodTest(Method method) {
 
-        Object[][] data =null;
+        Object[][] data = null;
         if (method.getName().equals("testLogin")) {
             data = new Object[2][2];
             data[0][0] = "John";

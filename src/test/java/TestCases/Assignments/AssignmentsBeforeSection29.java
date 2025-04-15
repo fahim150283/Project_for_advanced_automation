@@ -11,14 +11,14 @@ import static org.openqa.selenium.support.locators.RelativeLocator.with;
 
 public class AssignmentsBeforeSection29 extends Setup {
 
-//    @Test
+    //    @Test
     public static void Assignment1() {
         fluentwait.until(
                 d -> {
                     try {
                         // navigate to google
                         driver.get("https://www.google.com/");
-                        log.info("The navigated url is: "+driver.getCurrentUrl());
+                        log.info("The navigated url is: " + driver.getCurrentUrl());
 
                         //search for string
                         xpath = "//*[@id=\"APjFqb\"]";
@@ -160,7 +160,7 @@ public class AssignmentsBeforeSection29 extends Setup {
 
                         //set dimension
                         for (int i = 50; i < 120; i++) {
-                            driver.manage().window().setSize(new Dimension(10*(i+1), 8*(i+1)));
+                            driver.manage().window().setSize(new Dimension(10 * (i + 1), 8 * (i + 1)));
 //                            System.out.println(i + " " + driver.manage().window().getSize());
                         }
 

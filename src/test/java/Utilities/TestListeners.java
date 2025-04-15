@@ -14,7 +14,6 @@ import org.testng.reporters.EmailableReporter2;
 import org.testng.xml.XmlSuite;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,7 +33,6 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
     @Override
     public void onStart(ISuite suite) {
         this.suite = suite;
-
         // Initialize report directory once at suite start
         REPORT_DIR = "Reports for Email";
         File reportFolder = new File(REPORT_DIR);
@@ -45,6 +43,7 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
             reportFolder.mkdirs();
         }
 
+        //For Allure Report
         String AllureReport = "./allure-results";
         File AllureReport_reportFolder = new File(AllureReport);
         if (!AllureReport_reportFolder.exists()) {
@@ -52,6 +51,16 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
         } else {
             TestConfig.deleteDirectory(AllureReport_reportFolder);
             AllureReport_reportFolder.mkdirs();
+        }
+
+
+        // Initialize log directory
+        File logDir = new File("./logs");
+        if (!logDir.exists()) {
+            logDir.mkdirs();
+        } else {
+            TestConfig.deleteDirectory(new File("./logs"));
+            logDir.mkdirs();
         }
 
         String timestamp = new SimpleDateFormat("dd_MM_yy hh a").format(new Date());
