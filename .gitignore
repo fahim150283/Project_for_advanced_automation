@@ -46,3 +46,4 @@ build/
 /ExtentReports/
 /.idea/
 /allure-results/
+EmailCredentials.json

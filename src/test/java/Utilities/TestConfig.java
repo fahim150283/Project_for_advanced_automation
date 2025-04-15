@@ -23,16 +23,6 @@ public class TestConfig {
 
     static {
         try {
-            mailServer = "smtp.gmail.com";
-            from = "ahchowdhury.off@gmail.com";
-            password = "pumisiskddaexjcc"; // this is an App Password
-
-            to = new String[]{
-                    "fahim150283@yahoo.com"
-
-                    , "fahim150283@gmail.com"
-            };
-
             LocalDateTime localDateTime = LocalDateTime.now();
             DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("hh:mm a - dd/MM/yyyy");
             String formattedDate = localDateTime.format(myFormatObj);
