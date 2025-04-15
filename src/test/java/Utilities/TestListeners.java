@@ -16,6 +16,8 @@ import org.testng.xml.XmlSuite;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -99,18 +101,23 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
     public void onTestFailure(ITestResult result) {
         methodName = result.getMethod().getMethodName().toUpperCase();
         try {
-            // Capture screenshot and get relative path
+            // 1. Capture screenshot and get full path
             String screenshotRelativePath = TakeScreenshotUsingAshot.sshot(methodName, reportFolderName);
+            String screenshotFullPath = reportFolderName + File.separator + screenshotRelativePath;
 
-            //Attach screenshot to Allure report
-            InputStream img = new FileInputStream(screenshotRelativePath);
-            Allure.addAttachment("Screenshot", img);
+            // 2. Attach to Allure report (using proper file handling)
+            try (InputStream img = Files.newInputStream(Paths.get(screenshotFullPath))) {
+                Allure.addAttachment("Failure Screenshot - " + methodName, "image/png", img, "png");
+            }
 
-            // Attach screenshot to Extent report
+            // 3. Attach to Extent report
             extentTest.get().fail("Test Failed Screenshot",
                     MediaEntityBuilder.createScreenCaptureFromPath(screenshotRelativePath).build());
+
         } catch (Exception e) {
             extentTest.get().warning("Failed to capture screenshot: " + e.getMessage());
+            Allure.addAttachment("Screenshot Error", "text/plain",
+                    "Failed to capture screenshot: " + e.getMessage());
         }
 
 
