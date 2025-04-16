@@ -12,10 +12,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class TestConfig {
-    public static String mailServer;
-    public static String from;
-    public static String password;
-    public static String[] to;
+
     public static String subject;
     public static String messageBody;
     public static String[] attachmentPaths;
