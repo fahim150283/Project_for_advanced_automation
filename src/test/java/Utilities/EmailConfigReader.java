@@ -1,57 +1,126 @@
 package Utilities;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
 
 public class EmailConfigReader {
 
-    private String mailServer;
-    private String from;
-    private String password;
-    private List<String> recipients;
+    public static String mailServer;
+    public static String from;
+    public static String password;
+    public static String[] to;
 
-    public EmailConfigReader() {
+    // Getters
+    public static String getMailServer() {
         try {
             // Load the JSON file from resources
-            InputStream is = getClass().getResourceAsStream("/EmailCredentials.json");
-            JSONTokener tokener = new JSONTokener(is);
-            JSONObject config = new JSONObject(tokener);
+            JSONParser parser = new JSONParser();
+
+            try (FileReader reader = new FileReader("src/test/resources/EmailCredentials.json")) {
+                Object obj = parser.parse(reader);
+                JSONObject jsonObject = (JSONObject) obj;
+
+                // Get email object
+                JSONObject emailObj = (JSONObject) jsonObject.get("email");
+
+                // Extract values
+                mailServer = (String) emailObj.get("mailServer");
+
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to read email configuration", e);
+            }
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+        return mailServer;
+    }
+
+    public static String getFrom() {try {
+        // Load the JSON file from resources
+        JSONParser parser = new JSONParser();
+
+        try (FileReader reader = new FileReader("src/test/resources/EmailCredentials.json")) {
+            Object obj = parser.parse(reader);
+            JSONObject jsonObject = (JSONObject) obj;
 
             // Get email object
-            JSONObject email = config.getJSONObject("email");
+            JSONObject emailObj = (JSONObject) jsonObject.get("email");
 
             // Extract values
-            this.mailServer = email.getString("mailServer");
-            this.from = email.getString("from");
-            this.password = email.getString("password");
+            from = (String) emailObj.get("from");
 
-            // Extract recipients array
-            this.recipients = new ArrayList<>();
-            for (int i = 0; i < email.getJSONArray("recipients").length(); i++) {
-                recipients.add(email.getJSONArray("recipients").getString(i));
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read email configuration", e);
+        }
+    } catch (RuntimeException e) {
+        throw new RuntimeException(e);
+    }
+        return from;
+    }
+
+    public static String getPassword() {try {
+        // Load the JSON file from resources
+        JSONParser parser = new JSONParser();
+
+        try (FileReader reader = new FileReader("src/test/resources/EmailCredentials.json")) {
+            Object obj = parser.parse(reader);
+            JSONObject jsonObject = (JSONObject) obj;
+
+            // Get email object
+            JSONObject emailObj = (JSONObject) jsonObject.get("email");
+
+            // Extract values
+           password = (String) emailObj.get("password");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read email configuration", e);
+        }
+    } catch (RuntimeException e) {
+        throw new RuntimeException(e);
+    }
+        return password;
+    }
+
+    public static String[] getTo() {try {
+        // Load the JSON file from resources
+        JSONParser parser = new JSONParser();
+
+        try (FileReader reader = new FileReader("src/test/resources/EmailCredentials.json")) {
+            Object obj = parser.parse(reader);
+            JSONObject jsonObject = (JSONObject) obj;
+
+            // Get email object
+            JSONObject emailObj = (JSONObject) jsonObject.get("email");
+
+            // Extract values
+            JSONArray toArray = (JSONArray) emailObj.get("to");
+            to = new String[toArray.size()];
+
+            for (int i = 0; i < toArray.size(); i++) {
+                to[i] = (String) toArray.get(i);
             }
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to read email configuration", e);
         }
+    } catch (RuntimeException e) {
+        throw new RuntimeException(e);
     }
-
-    // Getters
-    public String getMailServer() { return mailServer; }
-    public String getFrom() { return from; }
-    public String getPassword() { return password; }
-    public List<String> getRecipients() { return recipients; }
+        return to;
+    }
 
     // Usage example
     public static void main(String[] args) {
-        EmailConfigReader config = new EmailConfigReader();
 
-        System.out.println("Mail Server: " + config.getMailServer());
-        System.out.println("From: " + config.getFrom());
-        System.out.println("Password: " + config.getPassword());
-        System.out.println("Recipients: " + config.getRecipients());
+        System.out.println("Mail Server: " + getMailServer());
+        System.out.println("From: " + getFrom());
+        System.out.println("Password: " + getPassword());
+        String[] recipients = getTo();
+        for (String recipient : recipients) {
+            System.out.println("Recipient: " + recipient);
+        }
     }
 }

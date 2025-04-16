@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static Utilities.EmailConfigReader.*;
+
 public class TestListeners extends Setup implements ITestListener, ISuiteListener, IReporter {
     private ISuite suite;
     public static String REPORT_DIR;
@@ -207,10 +209,10 @@ public class TestListeners extends Setup implements ITestListener, ISuiteListene
 
         // Send test results email with attachments
         MonitoringMail.sendMail(
-                TestConfig.mailServer,
-                TestConfig.from,
-                TestConfig.password,
-                TestConfig.to,
+                getMailServer(),
+                getFrom(),
+                getPassword(),
+                getTo(),
                 TestConfig.subject,
                 TestConfig.messageBody,
                 new String[]{TestConfig.zipfilepath}  // Attach the zip file
