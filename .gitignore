@@ -47,3 +47,4 @@ build/
 /.idea/
 /allure-results/
 EmailCredentials.json
+/screenshot/
