@@ -1,12 +1,11 @@
 package Grid;
 
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,22 +13,118 @@ import java.util.concurrent.TimeUnit;
 
 public class TestRemote {
     static WebDriver driver;
-    public static void main(String[] args) throws MalformedURLException {
+    static String officeUrl = "http://192.168.30.74:4444";
+    static String homeUrl = "";
+    static String url = officeUrl;
+
+    @Test(priority = 1)
+    public static void TestChrome() throws MalformedURLException {
         try {
-//            ChromeOptions co = new ChromeOptions();
-//            EdgeOptions eo = new EdgeOptions();
-            FirefoxOptions fo = new FirefoxOptions();
-//            driver = new RemoteWebDriver(new URL("http://192.168.30.234:4444"), co);
-            driver = new RemoteWebDriver(new URL("http://192.168.30.234:4444"), fo);
-//            driver = new RemoteWebDriver(new URL("http://192.168.30.234:4444"), eo);
-            driver.get("http://www.way2automation.com/");
+            ChromeOptions co = new ChromeOptions();
+            co.addArguments("--no-sandbox");
+            co.addArguments("--disable-dev-shm-usage");
+            co.addArguments("--remote-allow-origins=*");
+            co.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+            driver = new RemoteWebDriver(new URL(url), co);
+            driver.get("https://www.google.com/");
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
             Thread.sleep(150);
         } catch (InterruptedException e) {
+            System.out.println("Test Failed for Chrome");
             throw new RuntimeException(e);
         }
         driver.quit();
+        System.out.println("Test Completed Successfully for Chrome");
     }
+
+    @Test(priority = 2)
+    public static void TestEdge() throws MalformedURLException {
+        try {
+            EdgeOptions co = new EdgeOptions();
+            co.addArguments("--no-sandbox");
+            co.addArguments("--disable-dev-shm-usage");
+            co.addArguments("--remote-allow-origins=*");
+            co.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+            driver = new RemoteWebDriver(new URL(url), co);
+            driver.get("https://www.google.com/");
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            System.out.println("Test Failed for Edge");
+            throw new RuntimeException(e);
+        }
+        driver.quit();
+        System.out.println("Test Completed Successfully for Edge");
+    }
+
+    @Test(priority = 3)
+    public static void TestFirefox() throws MalformedURLException {
+        try {
+            FirefoxOptions co = new FirefoxOptions();
+
+            co.addArguments("--no-sandbox");
+            co.addArguments("--disable-dev-shm-usage");
+            co.addArguments("--remote-allow-origins=*");
+            co.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+            driver = new RemoteWebDriver(new URL(url), co);
+            driver.get("https://www.google.com/");
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            System.out.println("Test Failed for Firefox");
+            throw new RuntimeException(e);
+        }
+        driver.quit();
+        System.out.println("Test Completed Successfully for Firefox");
+    }
+
+//    @Test(priority = 5)
+//    public static void TestIE() throws MalformedURLException  {
+//        try {
+//            InternetExplorerOptions co = new InternetExplorerOptions();
+//             co.addArguments("--no-sandbox");
+//              co.addArguments("--disable-dev-shm-usage");
+//              co.addArguments("--remote-allow-origins=*");
+//              co.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+//            driver = new RemoteWebDriver(new URL(url), co);
+//            driver.get("https://www.google.com/");
+//            driver.manage().window().maximize();
+//            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//
+//            Thread.sleep(150);
+//        } catch (InterruptedException e) {
+//            System.out.println("Test Failed for IE");
+//            throw new RuntimeException(e);
+//        }
+//        driver.quit();
+//        System.out.println("Test Completed Successfully for IE");
+//    }
+//
+//    @Test(priority = 4)
+//    public static void TestSafari() throws MalformedURLException {
+//        try {
+//            SafariOptions co = new SafariOptions();
+//             co.addArguments("--no-sandbox");
+//              co.addArguments("--disable-dev-shm-usage");
+//              co.addArguments("--remote-allow-origins=*");
+//              co.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+//            driver = new RemoteWebDriver(new URL(url), co);
+//            driver.get("https://www.google.com/");
+//            driver.manage().window().maximize();
+//            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//
+//            Thread.sleep(150);
+//        } catch (InterruptedException e) {
+//            System.out.println("Test Failed for Safari");
+//            throw new RuntimeException(e);
+//        }
+//        driver.quit();
+//        System.out.println("Test Completed Successfully for Safari");
+//    }
 }
