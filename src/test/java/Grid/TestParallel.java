@@ -22,24 +22,22 @@ public class TestParallel {
         return driver.get();
     }
 
-    @Parameters({"browser"})
+    @Parameters({"browser", "url"})
     @Test
-//    public void doSearch() throws MalformedURLException {
-        public void doSearch (String browser) throws MalformedURLException {
-//        String browser = "safari";
-            Object opt = new Object();
-            if (browser.equals("firefox")) {
-                opt = new FirefoxOptions();
-            } else if (browser.equals("chrome")) {
-                opt = new ChromeOptions();
-            } else if (browser.equals("ie")) {
-                opt = new InternetExplorerOptions();
-            } else if (browser.equals("safari")) {
-                opt = new SafariOptions();
-            } else if (browser.equals("edge")) {
-                opt = new EdgeOptions();
-            }
-            driver.set(new RemoteWebDriver(new URL("http://192.168.30.74:4444"), (Capabilities) opt));
-            System.out.println(browser + " opened");
+    public void doSearch(String browser, String url) throws MalformedURLException {
+        Capabilities opt = null; // Declare the opt variable
+        if (browser.equals("firefox")) {
+            opt = new FirefoxOptions();
+        } else if (browser.equals("chrome")) {
+            opt = new ChromeOptions();
+//            opt.addArguments("--no-sandbox");
+//            opt.addArguments("--disable-dev-shm-usage");
+//            opt.addArguments("--remote-allow-origins=*");
+//            opt.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+        } else if (browser.equals("edge")) {
+            opt = new EdgeOptions();
         }
+        driver.set(new RemoteWebDriver(new URL(url), opt)); // No need to cast opt to Capabilities
+        System.out.println(browser + " opened");
     }
+}
