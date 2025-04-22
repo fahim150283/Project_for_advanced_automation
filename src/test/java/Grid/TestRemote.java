@@ -17,7 +17,7 @@ public class TestRemote {
     static WebDriver driver;
     static String officeUrl = "http://192.168.30.74:4444";
     static String homeUrl = "http://192.168.1.101:4444";
-    static String url = homeUrl;
+    static String url = officeUrl;
 
     @Test(priority = 1)
     public static void TestChrome() throws MalformedURLException {
@@ -67,6 +67,10 @@ public class TestRemote {
     public static void TestFirefox() throws MalformedURLException {
         try {
             FirefoxOptions co = new FirefoxOptions();
+//            co.addArguments("--no-sandbox");
+//            co.addArguments("--disable-dev-shm-usage");
+//            co.addArguments("--remote-allow-origins=*");
+//            co.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
             driver = new RemoteWebDriver(new URL(url), co);
             driver.get("https://www.google.com/");
             driver.manage().window().maximize();
