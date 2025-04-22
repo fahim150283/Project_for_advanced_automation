@@ -48,14 +48,17 @@ public class TestParallel {
             driver.set(dr);
             driver.get().manage().window().maximize();
             System.out.println(browser + " opened");
+
+            driver.get().get("https://www.google.com/");
             softAssert.assertTrue(driver.get().getCurrentUrl().contains("google"));
 
-            Thread.sleep(50);
+            Thread.sleep(500);
 
             driver.get().quit();
 //            driver.remove();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        softAssert.assertAll();
     }
 }
