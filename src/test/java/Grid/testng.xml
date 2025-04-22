@@ -8,10 +8,22 @@
 
 
     <test name="ChromeTest">
-        <parameter name="browser" value="firefox"/>
+        <parameter name="browser" value="chrome"/>
         <parameter name="headless" value="false"/>
         <!-- Office URL -->
         <parameter name="url" value="http://192.168.30.74:4444"/>
+        <!-- Home URL -->
+        <!--        <parameter name="url" value="http://192.168.1.101:4444"/> &lt;!&ndash; Home URL &ndash;&gt;-->
+        <classes>
+            <class name="Grid.TestParallel"/>
+        </classes>
+    </test>
+
+    <test name="FirefoxTest">
+        <parameter name="browser" value="firefox"/>
+        <parameter name="headless" value="false"/>
+        <!-- Office URL -->
+                <parameter name="url" value="http://192.168.30.74:4444"/>
         <!-- Home URL -->
 <!--        <parameter name="url" value="http://192.168.1.101:4444"/> &lt;!&ndash; Home URL &ndash;&gt;-->
         <classes>
@@ -19,28 +31,16 @@
         </classes>
     </test>
 
-<!--        <test name="FirefoxTest">-->
-<!--            <parameter name="browser" value="firefox"/>-->
-<!--            <parameter name="headless" value="false"/>-->
-<!--            &lt;!&ndash; Office URL &ndash;&gt;-->
-<!--            &lt;!&ndash;        <parameter name="url" value="http://192.168.30.74:4444"/>&ndash;&gt;-->
-<!--            &lt;!&ndash; Home URL &ndash;&gt;-->
-<!--            <parameter name="url" value="http://192.168.1.101:4444"/> &lt;!&ndash; Home URL &ndash;&gt;-->
-<!--            <classes>-->
-<!--                <class name="Grid.TestParallel"/>-->
-<!--            </classes>-->
-<!--        </test>-->
-
-<!--        <test name="EdgeTest">-->
-<!--            <parameter name="browser" value="edge"/>-->
-<!--            <parameter name="headless" value="false"/>-->
-<!--            &lt;!&ndash; Office URL &ndash;&gt;-->
-<!--            &lt;!&ndash;        <parameter name="url" value="http://192.168.30.74:4444"/>&ndash;&gt;-->
-<!--            &lt;!&ndash; Home URL &ndash;&gt;-->
-<!--            <parameter name="url" value="http://192.168.1.101:4444"/> &lt;!&ndash; Home URL &ndash;&gt;-->
-<!--            <classes>-->
-<!--                <class name="Grid.TestParallel"/>-->
-<!--            </classes>-->
-<!--        </test>-->
+    <test name="EdgeTest">
+        <parameter name="browser" value="edge"/>
+        <parameter name="headless" value="false"/>
+        <!-- Office URL -->
+                <parameter name="url" value="http://192.168.30.74:4444"/>
+        <!-- Home URL -->
+<!--        <parameter name="url" value="http://192.168.1.101:4444"/> &lt;!&ndash; Home URL &ndash;&gt;-->
+        <classes>
+            <class name="Grid.TestParallel"/>
+        </classes>
+    </test>
 
 </suite>
