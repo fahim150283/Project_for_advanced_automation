@@ -34,26 +34,28 @@ public class TestParallel {
             opt.addArguments("--no-sandbox");
             opt.addArguments("--disable-dev-shm-usage");
             opt.addArguments("--remote-allow-origins=*");
-            opt.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+                opt.addArguments("--user-data-dir=/tmp/unique-profile-" + java.util.UUID.randomUUID()+ System.currentTimeMillis());
                 dr = new RemoteWebDriver(new URL(url), opt);
             } else if (browser.equals("edge")) {
                 EdgeOptions opt = new EdgeOptions();
                 opt.addArguments("--no-sandbox");
                 opt.addArguments("--disable-dev-shm-usage");
                 opt.addArguments("--remote-allow-origins=*");
-                opt.addArguments("--user-data-dir=/tmp/unique-profile-" + System.currentTimeMillis());
+                opt.addArguments("--user-data-dir=/tmp/unique-profile-" + java.util.UUID.randomUUID()+ System.currentTimeMillis());
                 dr = new RemoteWebDriver(new URL(url), opt);
             }
 
             driver.set(dr);
+            driver.get().manage().window().maximize();
             System.out.println(browser + " opened");
             softAssert.assertTrue(driver.get().getCurrentUrl().contains("google"));
 
-            Thread.sleep(50000);
+            Thread.sleep(50);
+
+            driver.get().quit();
+//            driver.remove();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        driver.get().quit();
-        driver.remove();
     }
 }
