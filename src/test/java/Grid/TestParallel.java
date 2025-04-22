@@ -46,8 +46,9 @@ public class TestParallel {
             }
 
             driver.set(dr);
+            String osName = driver.get().getCapabilities().getPlatformName().name();
             driver.get().manage().window().maximize();
-            System.out.println(browser + " opened");
+            System.out.println(browser + " opened on " + osName);
 
             driver.get().get("https://www.google.com/");
             softAssert.assertTrue(driver.get().getCurrentUrl().contains("google"));
