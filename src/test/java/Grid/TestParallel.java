@@ -56,7 +56,6 @@ public class TestParallel {
             Thread.sleep(500);
 
             driver.get().quit();
-//            driver.remove();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
